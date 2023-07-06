@@ -50,7 +50,7 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 登录后点击右上角的“添加新网站”，输入密钥即可绑定成功。
 
 ## 进阶操作
-前往查看：[进阶文档](/qxchuckle/Post-Summary-AI/blob/main/Advanced.md)
+前往查看：[进阶文档](https://github.com/qxchuckle/Post-Summary-AI/blob/master/Advanced.md)
 
 ## 技术支持
 点击链接加入讨论子频道【TianliGPT 问题交流】：https://pd.qq.com/s/7cx85i9l0
