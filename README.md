@@ -24,7 +24,7 @@ TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要�
 ```html
 <link rel="stylesheet" href="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI/chuckle-post-ai.css">
 <script data-pjax defer="true">
-  ai_option={
+  const ai_option = {
     el: '#post #article-container',
     key:'123456'
   }
