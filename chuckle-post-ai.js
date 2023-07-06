@@ -17,7 +17,6 @@ function chucklePostAI() {
       <div class="ai-tag">GPT-4</div>
     </div>
     <div class="ai-explanation">QX-AI初始化中...</div>
-    <div class="ai-explanation-none">#{page.ai}</div>
     <div class="ai-btn-box">
       <div class="ai-btn-item">介绍自己</div>
       <div class="ai-btn-item">推荐相关文章</div>
