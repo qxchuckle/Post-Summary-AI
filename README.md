@@ -6,7 +6,8 @@
 
 ## 效果
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/af9236a1-fa37-4446-b5d3-0e9dd4d59ae6)
-![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/5712f1df-7b62-4398-8841-8c2829f8b8fa)
+![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/79959200-6816-45c1-8528-299909402eb9)
+
 
 ## 什么是TianliGPT
 
