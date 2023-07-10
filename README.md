@@ -30,7 +30,7 @@ TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要�
     key:'123456'
   }
 </script>
-<script src="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI/chuckle-post-ai.js" data-pjax defer="true"></script>
+<script src="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI@3.0/chuckle-post-ai.js" data-pjax defer="true"></script>
 ```
 
 **ai_option配置详解：**
