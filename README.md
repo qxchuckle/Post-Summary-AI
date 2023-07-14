@@ -8,7 +8,6 @@
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/af9236a1-fa37-4446-b5d3-0e9dd4d59ae6)
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/79959200-6816-45c1-8528-299909402eb9)
 
-
 ## 什么是TianliGPT
 
 TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要提取摘要的文本内容发送给TianliGPT，稍等一会他就可以给你发送一个基于这段文本内容的摘要。
@@ -20,23 +19,42 @@ TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要�
 - 支持中国大陆访问
 
 ## 快速上手
-非常简单，引入下面这些代码到你的网站内即可，其中JS的引入的位置应该在文章内容之后
+非常简单，引入下面这些代码到你的网站内，并修改配置项后即可
 
 ```html
+<!-- css -->
 <link rel="stylesheet" href="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI/chuckle-post-ai.css">
-<script data-pjax defer="true">
-  var ai_option = {
-    el: '#post #article-container',
-    key:'123456'
-  }
+<!-- chuckle-post-ai.js现在可以在网页结构的任何位置插入，只要你能够 -->
+<script src="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI/chuckle-post-ai.js"></script>
+<!-- 但要确保的是，AI构造代码一定要在chuckle-post-ai.js之后插入 -->
+<script data-pjax defer>
+  // AI构造函数
+  new ChucklePostAI({
+    /* 必须配置 */
+    // 文章内容所在的元素属性的选择器，也是AI挂载的容器，AI将会挂载到该容器的最前面
+    el: '#post>#article-container',
+    // 驱动AI所必须的key，即是tianliGPT后端服务所必须的key
+    key:'123456',
+    /* 非必须配置 */
+    // 文章标题所在的元素属性的选择器，默认获取当前网页的标题
+    title_el: '.post-title-link',
+    // 文章推荐方式，all：匹配数据库内所有文章进行推荐，web：仅当前站内的文章，默认all
+    rec_method: 'web',
+    // 获取文章内容时，需要排除的元素及其子元素，默认如下
+    exclude: ['highlight', 'Copyright-Notice', 'post-ai', 'post-series', 'mini-sandbox']
+  })
 </script>
-<script src="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI/chuckle-post-ai.js" data-pjax defer="true"></script>
 ```
 
-**ai_option配置详解：**
-1. **el** 文章内容所在的元素属性的选择器，也是AI挂载的容器，AI将会挂载到该容器的最前面
-2. **key** 驱动AI所必须的key，即是tianliGPT后端服务所必须的key
+**AI构造函数 `ChucklePostAI({ /* 传入配置对象 */ })` 详解**
+1. `el` 文章内容所在的元素属性的选择器，也是AI挂载的容器，AI将会挂载到该容器的最前面
+2. `key` 驱动AI所必须的key，即是tianliGPT后端服务所必须的key
+3. `title_el` 文章标题所在的元素属性的选择器，默认获取当前网页的标题
+4. `rec_method` 文章推荐方式，all：匹配数据库内所有文章进行推荐，web：仅当前站内的文章，默认all
+5. `exclude` 获取文章内容时，需要排除的元素及其子元素，默认如下
 
+
+# tianliGPT-KEY
 tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f25254001e7c00)中购买，10元5万字符（常有优惠）。请求过的内容再次请求不会消耗key，可以无限期使用。
 
 - 相比实时请求openai，使用tianliGPT可以让你请求过的内容不再消耗key，适合生产环境。

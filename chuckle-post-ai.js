@@ -1,14 +1,21 @@
-// 初始化函数，默认挂载到#post #article-container
-console.log("\n %c Post-Summary-AI 开源博客文章摘要AI生成工具 %c https://github.com/qxchuckle/Post-Summary-AI \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;")
-function chucklePostAI() {
+if(!window.hasOwnProperty("aiExecuted")){
+  console.log("\n %c Post-Summary-AI 开源博客文章摘要AI生成工具 %c https://github.com/qxchuckle/Post-Summary-AI \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;");
+  window.aiExecuted = "chuckle";
+}
+function ChucklePostAI(AI_option) {
   // 如果有则删除
   const box = document.querySelector(".post-ai");
   if (box) {
     box.parentElement.removeChild(box);
   }
   // 挂载
-  const targetElement = document.querySelector(ai_option.el ? ai_option.el : '#post #article-container');
-  if (!targetElement) return;
+  const targetElement = document.querySelector(AI_option.el ? AI_option.el : '#post #article-container');
+  // 获取文章标题，默认获取网页标题
+  const post_title = AI_option.title_el ? document.querySelector(AI_option.title_el).textContent : document.title;
+  if (!targetElement) {
+    console.log("ai挂载失败!请检查挂载的容器是否正确。");
+    return
+  };
   const post_ai_box = document.createElement('div');
   post_ai_box.className = 'post-ai';
   targetElement.insertBefore(post_ai_box, targetElement.firstChild);
@@ -43,7 +50,7 @@ function chucklePostAI() {
   const apiKey = "填入chatGPT的apiKey";
   //tianliGPT的参数
   const tlReferer = `https://${window.location.host}/`;
-  const tlKey = ai_option.key ? ai_option.key : '123456';
+  const tlKey = AI_option.key ? AI_option.key : '123456';
   //-----------------------------------------------
   const animate = (timestamp) => {
     if (!animationRunning) {
@@ -136,15 +143,14 @@ function chucklePostAI() {
   }
   function aiRecommend() {
     resetAI();
-    sto[2] = setTimeout(() => {
-      explanation.innerHTML = recommendList();
+    sto[2] = setTimeout(async() => {
+      let info = await recommendList();
+      if(!info){
+        startAI('QX-AI未能找到任何可推荐的文章。');
+      }else{
+        explanation.innerHTML = info;
+      }
     }, 300);
-  }
-  function aiGoHome() {
-    startAI('正在前往博客主页...', false);
-    sto[2] = setTimeout(() => {
-      pjax.loadUrl("/");
-    }, 1000);
   }
   async function aiGenerateAbstract() {
     // if(!verifyDomainName()){btf.snackbarShow('未经授权的域名');return;}
@@ -152,39 +158,69 @@ function chucklePostAI() {
     //   btf.snackbarShow('AI摘要正在生成，请勿重复发起');
     //   return;
     // }
-    if (clickFrequency()) {
-      return;
-    }
-    localStorage.setItem('aiTime', Date.now());
+    // if (clickFrequency()) {
+    //   return;
+    // }
+    // localStorage.setItem('aiTime', Date.now());
     resetAI();
     const ele = targetElement
     const content = getTextContent(ele);
-    console.log(content);
+    // console.log(content);
     const response = await getGptResponse(content, choiceApi);//true使用tianliGPT，false使用官方api
-    console.log(response);
+    // console.log(response);
     startAI(response);
   }
-  function recommendList() {
-    let recommend =  document.querySelectorAll('.card-recommend-post .aside-list .aside-list-item .thumbnail');
-    let recent =  document.querySelectorAll('.card-recent-post .aside-list .aside-list-item .thumbnail');
-    if(!(recommend && recent) || (recent.length === 0 && recommend.length === 0)){
-      return '推荐功能未适配该博客主题，目前已适配：hexo-butterfly。'
+  async function recommendList() {
+    completeGenerate = false;
+    controller = new AbortController();
+    signal = controller.signal;
+    let response = '';
+    let info = '';
+    let data = '';
+    const options = {
+      method: 'GET',
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
+    };
+    // 利用sessionStorage缓存推荐列表，有则缓存中读取，无则获取后缓存
+    if(sessionStorage.getItem('recommendList')){
+      data = JSON.parse(sessionStorage.getItem('recommendList'));
+    }else{
+      try {
+        response = await fetch(`https://summary.tianli0.top/recommends?url=${encodeURIComponent(window.location.href)}&author=${AI_option.rec_method ? AI_option.rec_method : 'all'}`, options)
+        if (response.status === 429) {
+          startAI('请求过于频繁，请稍后再请求AI。');
+        }
+        if (!response.ok) {
+          throw new Error('Response not ok');
+        }
+        // 处理响应
+      } catch (error) {
+        console.error('Error occurred:', error);
+        startAI("获取推荐出错了，请稍后再试。");
+      }
+      // 解析响应并返回结果
+      data = await response.json();
+      sessionStorage.setItem('recommendList', JSON.stringify(data));
+      // console.log(data);
     }
-    let info = `推荐文章：<br />`;
-    let thumbnail = recommend;
-    if (!thumbnail || thumbnail.length === 0) {
-      info = '很抱歉，无法找到类似的文章，你也可以看看本站最近更新的文章：<br />';
-      thumbnail = recent;
+    completeGenerate = true;
+    if(data.hasOwnProperty("success") && !data.success){
+      return false;
+    }else{
+      info = `推荐文章：<br />`;
+      info += '<div class="ai-recommend">';
+      data.forEach((item, index) => {
+        info += `<div class="ai-recommend-item"><span>推荐${index + 1}：</span><a target="_blank" href="${item.url}" title="${item.title ? item.title : "未获取到题目"}">${item.title ? item.title : "未获取到题目"}</a></div>`;
+      });
+      info += '</div>'
     }
-    info += '<div class="ai-recommend">';
-    thumbnail.forEach((item, index) => {
-      info += `<div class="ai-recommend-item"><span>推荐${index + 1}：</span><a href="javascript:;" onclick="pjax.loadUrl('${item.href}')" title="${item.title}" data-pjax-state="">${item.title}</a></div>`;
-    });
-    info += '</div>'
     return info;
   }
   //ai首屏初始化，绑定按钮注册事件
   function ai_init() {
+    // 清除缓存
+    sessionStorage.removeItem('recommendList');
+    sessionStorage.removeItem('summary');
     explanation = document.querySelector('.ai-explanation');
     post_ai = document.querySelector('.post-ai');
     ai_btn_item = document.querySelectorAll('.ai-btn-item');
@@ -199,10 +235,10 @@ function chucklePostAI() {
   function clickFrequency(t = 3000) {
     let time = Date.now() - localStorage.getItem('aiTime');
     if (time < t) {
-      if(btf){
-        btf.snackbarShow(`${3 - parseInt(time / 1000)}后才能再次点击生成AI简介`);
+      if(typeof btf!=="undefined"){
+        btf.snackbarShow(`${3 - parseInt(time / 1000)}秒后才能再次点击生成AI简介`);
       }else{
-        alert(`${3 - parseInt(time / 1000)}后才能再次点击生成AI简介`)
+        alert(`${3 - parseInt(time / 1000)}秒后才能再次点击生成AI简介`)
       }
       return true;
     } else {
@@ -219,7 +255,7 @@ function chucklePostAI() {
   //获取某个元素内的所有纯文本，并按顺序拼接返回
   function getText(element) {
     //需要排除的元素及其子元素
-    const excludeClasses = ['highlight', 'Copyright-Notice', 'post-ai', 'post-series', 'mini-sandbox',];
+    const excludeClasses = AI_option.exclude ? AI_option.exclude : ['highlight', 'Copyright-Notice', 'post-ai', 'post-series', 'mini-sandbox'];
     let textContent = '';
     for (let node of element.childNodes) {
       if (node.nodeType === Node.TEXT_NODE) {
@@ -305,6 +341,9 @@ function chucklePostAI() {
     controller = new AbortController();
     signal = controller.signal;
     let response = '';
+    if(sessionStorage.getItem('summary')){
+      return sessionStorage.getItem('summary');
+    }
     if (i) {
       try {
         response = await fetch('https://summary.tianli0.top/', {
@@ -317,6 +356,7 @@ function chucklePostAI() {
           body: JSON.stringify({
             content: content,
             key: tlKey,
+            title: post_title,
             url: window.location.href
           })
         });
@@ -336,6 +376,7 @@ function chucklePostAI() {
       const outputText = data.summary;
       // console.log(outputText);
       completeGenerate = true;
+      sessionStorage.setItem('summary', outputText);
       return outputText;
     } else {
       const prompt = `你是一个摘要生成工具，你需要解释我发送给你的内容，不要换行，不要超过200字，只需要介绍文章的内容，不需要提出建议和缺少的东西。请用中文回答，文章内容为：${content}`;
@@ -368,9 +409,14 @@ function chucklePostAI() {
       const data = await response.json();
       const outputText = data.choices[0].message.content;
       completeGenerate = true;
+      sessionStorage.setItem('summary', outputText);
       return outputText;
     }
   }
   ai_init();
 }
-chucklePostAI();
+// 兼容旧版本配置项
+if(typeof ai_option!=="undefined"){
+  console.log("正在使用旧版本配置方式，请前往项目仓库查看最新配置写法");
+  new ChucklePostAI(ai_option);
+}

@@ -110,3 +110,21 @@
   width: 50%;
   margin-top: 2px;
 }
+.ai-recommend-item a{
+  border-bottom: 2px solid #4c98f7;
+  padding: 0 .2em;
+  color: #4c98f7;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+.ai-recommend-item a:hover{
+  background-color: #49b1f5;
+  border-bottom: 2px solid #49b1f5;
+  color: #fff;
+  border-radius: 5px;
+}
