@@ -54,7 +54,7 @@ TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要�
 5. `exclude` 获取文章内容时，需要排除的元素及其子元素，默认如下
 
 
-# tianliGPT-KEY
+## tianliGPT-KEY
 tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f25254001e7c00)中购买，10元5万字符（常有优惠）。请求过的内容再次请求不会消耗key，可以无限期使用。
 
 - 相比实时请求openai，使用tianliGPT可以让你请求过的内容不再消耗key，适合生产环境。
