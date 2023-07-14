@@ -21,6 +21,8 @@ TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要�
 ## 快速上手
 非常简单，引入下面这些代码到你的网站内，并修改配置项后即可
 
+TIP: 为避免CDN和浏览器缓存的影响，建议指定资源版本号使用
+
 ```html
 <!-- css -->
 <link rel="stylesheet" href="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI/chuckle-post-ai.css">
@@ -37,7 +39,7 @@ TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要�
     key:'123456',
     /* 非必须配置 */
     // 文章标题所在的元素属性的选择器，默认获取当前网页的标题
-    title_el: '.post-title-link',
+    title_el: '.post-title',
     // 文章推荐方式，all：匹配数据库内所有文章进行推荐，web：仅当前站内的文章，默认all
     rec_method: 'web',
     // 获取文章内容时，需要排除的元素及其子元素，默认如下
