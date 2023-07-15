@@ -82,3 +82,4 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 友情项目和本项目都是基于tianliGPT的AI摘要前端实现，可自行选择适合你网站的项目。
 
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/352ebdec-c43a-40a7-8060-30230ed5aa0d)
+
