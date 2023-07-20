@@ -23,6 +23,8 @@ TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要�
 
 TIP: 为避免CDN和浏览器缓存的影响，建议指定资源版本号使用
 
+cdn1.tianli0.top是公益cdn，若无法访问或为确保资源的稳定，建议下载仓库对应文件至本地引入
+
 ```html
 <!-- css -->
 <link rel="stylesheet" href="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI/chuckle-post-ai.css">
