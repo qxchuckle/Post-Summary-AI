@@ -4,7 +4,7 @@
   --ai-border:1px solid #e3e8f7bd;
   --ai-tag-bg:rgba(48, 52, 63, 0.86);
 }
-[data-theme=dark] {
+[data-theme=dark],.theme-dark {
   --font-color:rgba(255,255,255,0.86);
   --ai-post-bg:rgba(48, 52, 63, 0.35);
   --ai-border:1px solid #3d3d3f;

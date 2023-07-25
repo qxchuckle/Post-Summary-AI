@@ -11,7 +11,7 @@ function ChucklePostAI(AI_option) {
   // 挂载
   const targetElement = document.querySelector(AI_option.el ? AI_option.el : '#post #article-container');
   // 获取文章标题，默认获取网页标题
-  const post_title = AI_option.title_el ? document.querySelector(AI_option.title_el).textContent : document.title;
+  const post_title = document.querySelector(AI_option.title_el) ? document.querySelector(AI_option.title_el).textContent : document.title;
   if (!targetElement) {
     console.log("ai挂载失败!请检查挂载的容器是否正确。");
     return
