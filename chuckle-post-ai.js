@@ -8,6 +8,12 @@ function ChucklePostAI(AI_option) {
   if (box) {
     box.parentElement.removeChild(box);
   }
+  const currentURL = window.location.href;
+  // 排除页面
+  if(AI_option.eliminate && AI_option.eliminate.some(item => currentURL.includes(item))){
+    console.log("已为当前页面排除摘要AI");
+    return;
+  }
   // 挂载
   const targetElement = document.querySelector(AI_option.el ? AI_option.el : '#post #article-container');
   // 获取文章标题，默认获取网页标题
