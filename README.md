@@ -72,6 +72,10 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 
 登录后点击右上角的“添加新网站”，输入密钥即可绑定成功。
 
+## 版本升级
+修改引入资源的版本号，版本号可在[releases](https://github.com/qxchuckle/Post-Summary-AI/releases)查看
+![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/7e9d3ef9-bdfa-40f7-bd97-9183a02e96d8)
+
 ## 进阶操作
 **1、自定义界面信息，修改AI名称和自我介绍等**，新增 `interface` 配置项
 
