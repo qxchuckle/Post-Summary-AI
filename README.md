@@ -39,7 +39,7 @@ cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资
     el: '#post>#article-container',
     // 驱动AI所必须的key，即是tianliGPT后端服务所必须的key
     key:'123456',
-    /* 非必须配置 */
+    /* 非必须配置，但最好根据自身需要进行配置 */
     // 文章标题所在的元素属性的选择器，默认获取当前网页的标题
     title_el: '.post-title',
     // 文章推荐方式，all：匹配数据库内所有文章进行推荐，web：仅当前站内的文章，默认all
@@ -73,7 +73,17 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 登录后点击右上角的“添加新网站”，输入密钥即可绑定成功。
 
 ## 进阶操作
-前往查看：[进阶文档](https://github.com/qxchuckle/Post-Summary-AI/blob/master/Advanced.md)
+**1、自定义界面信息，修改AI名称和自我介绍等**，新增 `interface` 配置项
+
+```js
+new ChucklePostAI({
+  interface: {
+    name: "QX-AI", // AI名称
+    introduce: "我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。", // 自我介绍
+    version: "GPT-4" // 右上角GPT版本文字
+  }
+})
+```
 
 ## 技术支持
 点击链接加入讨论子频道【TianliGPT 问题交流】：https://pd.qq.com/s/7cx85i9l0
