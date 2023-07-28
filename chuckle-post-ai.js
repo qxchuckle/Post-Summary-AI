@@ -58,6 +58,7 @@ function ChucklePostAI(AI_option) {
   let completeGenerate = false;
   let controller = new AbortController();//控制fetch
   let signal = controller.signal;
+  let visitorId = ""; // 标识访客ID
   //默认true，使用tianliGPT，false使用官方api，记得配置Key
   const choiceApi = true;
   const apiKey = "填入chatGPT的apiKey";
@@ -230,10 +231,13 @@ function ChucklePostAI(AI_option) {
     return info;
   }
   //ai首屏初始化，绑定按钮注册事件
-  function ai_init() {
+  async function ai_init() {
     // 清除缓存
     sessionStorage.removeItem('recommendList');
     sessionStorage.removeItem('summary');
+    // 获取或生成访客ID
+    visitorId = localStorage.getItem('visitorId') || await generateVisitorID();
+    // console.log(visitorId);
     explanation = document.querySelector('.ai-explanation');
     post_ai = document.querySelector('.post-ai');
     ai_btn_item = document.querySelectorAll('.ai-btn-item');
@@ -244,6 +248,19 @@ function ChucklePostAI(AI_option) {
       });
     });
     aiIntroduce();
+  }
+  async function generateVisitorID() {
+    try {
+      const FingerprintJS = await import('https://openfpcdn.io/fingerprintjs/v4');
+      const fp = await FingerprintJS.default.load();
+      const result = await fp.get();
+      const visitorId = result.visitorId;
+      localStorage.setItem('visitorId', visitorId);
+      return visitorId;
+    } catch (error) {
+      console.error("生成ID失败：", error);
+      return null;
+    }
   }
   function clickFrequency(t = 3000) {
     let time = Date.now() - localStorage.getItem('aiTime');
@@ -370,7 +387,8 @@ function ChucklePostAI(AI_option) {
             content: content,
             key: tlKey,
             title: post_title,
-            url: window.location.href
+            url: window.location.href,
+            user_openid: visitorId
           })
         });
         if (response.status === 429) {
@@ -424,6 +442,26 @@ function ChucklePostAI(AI_option) {
       completeGenerate = true;
       sessionStorage.setItem('summary', outputText);
       return outputText;
+    }
+  }
+  // 请求个性化推荐
+  async function personalizedRecommend(){
+    completeGenerate = false;
+    controller = new AbortController();
+    signal = controller.signal;
+    const options = {
+      signal,
+      method: 'GET',
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
+    };
+    try{
+      const response = await fetch(`https://summary.tianli0.top/personalized_recommends?openid=${visitorId}`, options);
+      completeGenerate = true;
+      const data = await response.json();
+      return data;
+    }catch{
+      startAI(`${interface.name}获取个性化推荐出错了，请稍后再试。`);
+      return null;
     }
   }
   ai_init();
