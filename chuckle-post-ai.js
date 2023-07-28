@@ -159,30 +159,23 @@ function ChucklePostAI(AI_option) {
     resetAI();
     sto[2] = setTimeout(async() => {
       let info = await recommendList();
-      if(!info){
+      if(info === ""){
         startAI(`${interface.name}未能找到任何可推荐的文章。`);
-      }else{
+      }else if(info){
         explanation.innerHTML = info;
       }
-    }, 300);
+    }, 200);
   }
   async function aiGenerateAbstract() {
-    // if(!verifyDomainName()){btf.snackbarShow('未经授权的域名');return;}
-    // if(!completeGenerate){
-    //   btf.snackbarShow('AI摘要正在生成，请勿重复发起');
-    //   return;
-    // }
-    // if (clickFrequency()) {
-    //   return;
-    // }
-    // localStorage.setItem('aiTime', Date.now());
     resetAI();
     const ele = targetElement
     const content = getTextContent(ele);
     // console.log(content);
     const response = await getGptResponse(content, choiceApi);//true使用tianliGPT，false使用官方api
     // console.log(response);
-    startAI(response);
+    if(response){
+      startAI(response);
+    }
   }
   async function recommendList() {
     completeGenerate = false;
@@ -192,6 +185,7 @@ function ChucklePostAI(AI_option) {
     let info = '';
     let data = '';
     const options = {
+      signal,
       method: 'GET',
       headers: {'content-type': 'application/x-www-form-urlencoded'},
     };
@@ -200,7 +194,8 @@ function ChucklePostAI(AI_option) {
       data = JSON.parse(sessionStorage.getItem('recommendList'));
     }else{
       try {
-        response = await fetch(`https://summary.tianli0.top/recommends?url=${encodeURIComponent(window.location.href)}&author=${AI_option.rec_method ? AI_option.rec_method : 'all'}`, options)
+        response = await fetch(`https://summary.tianli0.top/recommends?url=${encodeURIComponent(window.location.href)}&author=${AI_option.rec_method ? AI_option.rec_method : 'all'}`, options);
+        completeGenerate = true;
         if (response.status === 429) {
           startAI('请求过于频繁，请稍后再请求AI。');
         }
@@ -209,15 +204,20 @@ function ChucklePostAI(AI_option) {
         }
         // 处理响应
       } catch (error) {
-        console.error('Error occurred:', error);
-        startAI("获取推荐出错了，请稍后再试。");
+        if (error.name === "AbortError") {
+          // console.log("请求已被中止");
+        }else{
+          console.error('Error occurred:', error);
+          startAI("获取推荐出错了，请稍后再试。");
+        }
+        completeGenerate = true;
+        return false;
       }
       // 解析响应并返回结果
       data = await response.json();
       sessionStorage.setItem('recommendList', JSON.stringify(data));
       // console.log(data);
     }
-    completeGenerate = true;
     if(data.hasOwnProperty("success") && !data.success){
       return false;
     }else{
@@ -235,8 +235,6 @@ function ChucklePostAI(AI_option) {
     // 清除缓存
     sessionStorage.removeItem('recommendList');
     sessionStorage.removeItem('summary');
-    // 获取或生成访客ID
-    visitorId = localStorage.getItem('visitorId') || await generateVisitorID();
     // console.log(visitorId);
     explanation = document.querySelector('.ai-explanation');
     post_ai = document.querySelector('.post-ai');
@@ -248,6 +246,8 @@ function ChucklePostAI(AI_option) {
       });
     });
     aiIntroduce();
+    // 获取或生成访客ID
+    visitorId = localStorage.getItem('visitorId') || await generateVisitorID();
   }
   async function generateVisitorID() {
     try {
@@ -262,26 +262,6 @@ function ChucklePostAI(AI_option) {
       return null;
     }
   }
-  function clickFrequency(t = 3000) {
-    let time = Date.now() - localStorage.getItem('aiTime');
-    if (time < t) {
-      if(typeof btf!=="undefined"){
-        btf.snackbarShow(`${3 - parseInt(time / 1000)}秒后才能再次点击生成AI简介`);
-      }else{
-        alert(`${3 - parseInt(time / 1000)}秒后才能再次点击生成AI简介`)
-      }
-      return true;
-    } else {
-      return false;
-    }
-  }
-  // 真AI简介相关函数
-
-  // function verifyDomainName(){
-  //   const domain = window.location.hostname;
-  //   const authorized = ['www.qcqx.cn','www.chuckle.top','127.0.0.1'];
-  //   return authorized.includes(domain)
-  // }
   //获取某个元素内的所有纯文本，并按顺序拼接返回
   function getText(element) {
     //需要排除的元素及其子元素
@@ -303,18 +283,7 @@ function ChucklePostAI(AI_option) {
         }
         //如果hasExcludeClass为false，即该标签不包含需要排除的类，可以继续向下遍历子元素
         if (!hasExcludeClass) {
-          //不同元素内获取的文本用句号隔开
           let innerTextContent = getText(node);
-          // if (textContent && innerTextContent) {
-          //   //如果本来有标点符号则不添加
-          //   if (/[：:,.，。?？/；;!！（）、)(]$/.test(textContent) || /^[：:,.，。?？/；;!！（）、@#￥$%&)(]/.test(innerTextContent)) {
-          //     textContent += innerTextContent;
-          //   } else {
-          //     textContent += '。' + innerTextContent;
-          //   }
-          // } else {
-          //   textContent += innerTextContent;
-          // }
           textContent += innerTextContent;
         }
       }
@@ -391,6 +360,7 @@ function ChucklePostAI(AI_option) {
             user_openid: visitorId
           })
         });
+        completeGenerate = true;
         if (response.status === 429) {
           startAI('请求过于频繁，请稍后再请求AI。');
         }
@@ -399,14 +369,20 @@ function ChucklePostAI(AI_option) {
         }
         // 处理响应
       } catch (error) {
-        console.error('Error occurred:', error);
-        startAI(`${interface.name}请求tianliGPT出错了，请稍后再试。`);
+        if (error.name === "AbortError") {
+          // console.log("请求已被中止");
+        }else if(window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+          startAI(`${interface.name}请求tianliGPT出错了，你正在本地进行调试，请前往summary.zhheo.com添加本地域名（127.0.0.1:端口）的白名单。`);
+        }else{
+          startAI(`${interface.name}请求tianliGPT出错了，请稍后再试。`);
+        }
+        completeGenerate = true;
+        return "";
       }
       // 解析响应并返回结果
       const data = await response.json();
       const outputText = data.summary;
       // console.log(outputText);
-      completeGenerate = true;
       sessionStorage.setItem('summary', outputText);
       return outputText;
     } else {
@@ -425,6 +401,7 @@ function ChucklePostAI(AI_option) {
             messages: [{ "role": "user", "content": prompt }],
           })
         });
+        completeGenerate = true;
         if (response.status === 429) {
           startAI('请求过于频繁，请稍后再请求AI。');
         }
@@ -435,11 +412,12 @@ function ChucklePostAI(AI_option) {
       } catch (error) {
         console.error('Error occurred:', error);
         startAI(`${interface.name}请求chatGPT出错了，请稍后再试。`);
+        completeGenerate = true;
+        return "";
       }
       // 解析响应并返回结果
       const data = await response.json();
       const outputText = data.choices[0].message.content;
-      completeGenerate = true;
       sessionStorage.setItem('summary', outputText);
       return outputText;
     }
@@ -461,6 +439,7 @@ function ChucklePostAI(AI_option) {
       return data;
     }catch{
       startAI(`${interface.name}获取个性化推荐出错了，请稍后再试。`);
+      completeGenerate = true;
       return null;
     }
   }
