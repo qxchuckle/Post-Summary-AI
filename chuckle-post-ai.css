@@ -3,12 +3,14 @@
   --ai-post-bg:rgba(255,255,255,0.32);
   --ai-border:1px solid #e3e8f7bd;
   --ai-tag-bg:rgba(48, 52, 63, 0.86);
+  --ai-cursor: #333;
 }
-[data-theme=dark],.theme-dark {
+[data-theme=dark], .theme-dark, body.dark, body.dark-theme {
   --font-color:rgba(255,255,255,0.86);
   --ai-post-bg:rgba(48, 52, 63, 0.35);
   --ai-border:1px solid #3d3d3f;
   --ai-tag-bg:#30343f;
+  --ai-cursor: rgb(255, 255, 255, 0.9);
 }
 .post-ai{
   background: var(--ai-post-bg);
@@ -56,7 +58,7 @@
 .ai-cursor{
   display: inline-block;
   width: 7px;
-  background: #333;
+  background: var(--ai-cursor);
   height: 16px;
   margin-bottom: -2px;
   opacity: 0.95;
@@ -66,10 +68,6 @@
   -moz-transition: all 0.3s;
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
-}
-[data-theme=dark]
-.ai-cursor{
-  background: rgb(255, 255, 255, 0.9);
 }
 .ai-btn-box{
   font-size: 15.5px;
