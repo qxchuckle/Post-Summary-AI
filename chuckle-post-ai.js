@@ -1,5 +1,5 @@
 if(!window.hasOwnProperty("aiExecuted")){
-  console.log("\n %c Post-Summary-AI 开源博客文章摘要AI生成工具 %c https://github.com/qxchuckle/Post-Summary-AI \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;");
+  console.log(`%cPost-Summary-AI 文章摘要AI生成工具:%chttps://github.com/qxchuckle/Post-Summary-AI%c`, "border:1px #888 solid;border-right:0;border-radius:5px 0 0 5px;padding: 5px 10px;color:white;background:#4976f5;margin:10px 0", "border:1px #888 solid;border-left:0;border-radius:0 5px 5px 0;padding: 5px 10px;","");
   window.aiExecuted = "chuckle";
 }
 function ChucklePostAI(AI_option) {
@@ -13,17 +13,23 @@ function ChucklePostAI(AI_option) {
   // 获取文章标题，默认获取网页标题
   const post_title = document.querySelector(AI_option.title_el) ? document.querySelector(AI_option.title_el).textContent : document.title;
   if (!targetElement) {
-    console.log("ai挂载失败!请检查挂载的容器是否正确。");
-    return
+    // console.log("ai挂载失败!请检查挂载的容器是否正确。");
+    return;
   };
+  const interface = {
+    name: "QX-AI",
+    introduce: "我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。",
+    version: "GPT-4",
+    ...AI_option.interface
+  }
   const post_ai_box = document.createElement('div');
   post_ai_box.className = 'post-ai';
   targetElement.insertBefore(post_ai_box, targetElement.firstChild);
   post_ai_box.innerHTML = `<div class="ai-title">
-      <div class="ai-title-text">QX-AI</div>
-      <div class="ai-tag">GPT-4</div>
+      <div class="ai-title-text">${interface.name}</div>
+      <div class="ai-tag">${interface.version}</div>
     </div>
-    <div class="ai-explanation">QX-AI初始化中...</div>
+    <div class="ai-explanation">${interface.name}初始化中...</div>
     <div class="ai-btn-box">
       <div class="ai-btn-item">介绍自己</div>
       <div class="ai-btn-item">推荐相关文章</div>
@@ -139,14 +145,14 @@ function ChucklePostAI(AI_option) {
     observer.observe(post_ai);//启动新监听
   }
   function aiIntroduce() {
-    startAI('我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。');
+    startAI(interface.introduce);
   }
   function aiRecommend() {
     resetAI();
     sto[2] = setTimeout(async() => {
       let info = await recommendList();
       if(!info){
-        startAI('QX-AI未能找到任何可推荐的文章。');
+        startAI(`${interface.name}未能找到任何可推荐的文章。`);
       }else{
         explanation.innerHTML = info;
       }
@@ -369,7 +375,7 @@ function ChucklePostAI(AI_option) {
         // 处理响应
       } catch (error) {
         console.error('Error occurred:', error);
-        startAI("QX-AI请求tianliGPT出错了，请稍后再试。");
+        startAI(`${interface.name}请求tianliGPT出错了，请稍后再试。`);
       }
       // 解析响应并返回结果
       const data = await response.json();
@@ -403,7 +409,7 @@ function ChucklePostAI(AI_option) {
         // 处理响应
       } catch (error) {
         console.error('Error occurred:', error);
-        startAI("QX-AI请求chatGPT出错了，请稍后再试。");
+        startAI(`${interface.name}请求chatGPT出错了，请稍后再试。`);
       }
       // 解析响应并返回结果
       const data = await response.json();
