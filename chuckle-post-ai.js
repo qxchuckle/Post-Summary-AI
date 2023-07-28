@@ -19,7 +19,6 @@ function ChucklePostAI(AI_option) {
   // 获取文章标题，默认获取网页标题
   const post_title = document.querySelector(AI_option.title_el) ? document.querySelector(AI_option.title_el).textContent : document.title;
   if (!targetElement) {
-    // console.log("ai挂载失败!请检查挂载的容器是否正确。");
     return;
   };
   const interface = {
@@ -137,10 +136,8 @@ function ChucklePostAI(AI_option) {
     } else {
       explanation.innerHTML = '请等待. . .';
     }
-    // console.log(completeGenerate);
     if (!completeGenerate) {
       controller.abort();
-      // console.log(completeGenerate);
     }
     ai_str = '';
     ai_str_length = '';
@@ -170,9 +167,7 @@ function ChucklePostAI(AI_option) {
     resetAI();
     const ele = targetElement
     const content = getTextContent(ele);
-    // console.log(content);
     const response = await getGptResponse(content, choiceApi);//true使用tianliGPT，false使用官方api
-    // console.log(response);
     if(response){
       startAI(response);
     }
@@ -216,7 +211,6 @@ function ChucklePostAI(AI_option) {
       // 解析响应并返回结果
       data = await response.json();
       sessionStorage.setItem('recommendList', JSON.stringify(data));
-      // console.log(data);
     }
     if(data.hasOwnProperty("success") && !data.success){
       return false;
@@ -235,7 +229,6 @@ function ChucklePostAI(AI_option) {
     // 清除缓存
     sessionStorage.removeItem('recommendList');
     sessionStorage.removeItem('summary');
-    // console.log(visitorId);
     explanation = document.querySelector('.ai-explanation');
     post_ai = document.querySelector('.post-ai');
     ai_btn_item = document.querySelectorAll('.ai-btn-item');
@@ -382,7 +375,6 @@ function ChucklePostAI(AI_option) {
       // 解析响应并返回结果
       const data = await response.json();
       const outputText = data.summary;
-      // console.log(outputText);
       sessionStorage.setItem('summary', outputText);
       return outputText;
     } else {
