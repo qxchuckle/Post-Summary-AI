@@ -12,7 +12,7 @@
   --ai-tag-bg:#30343f;
   --ai-cursor: rgb(255, 255, 255, 0.9);
 }
-.post-ai{
+#post-ai.post-ai{
   background: var(--ai-post-bg);
   border-radius: 12px;
   padding: 12px 16px;
@@ -26,21 +26,21 @@
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
 }
-.ai-title{
+#post-ai .ai-title{
   display: flex;
   color: var(--font-color);
   border-radius: 8px;
   align-items: center;
   padding: 0 5px;
 }
-.ai-title i{
+#post-ai .ai-title i{
   font-weight: 800;
 }
-.ai-title-text{
+#post-ai .ai-title-text{
   font-weight: bold;
   margin-left: 8px;
 }
-.ai-tag{
+#post-ai .ai-tag{
   font-size: 12px;
   background-color: var(--ai-tag-bg);
   color: rgba(255,255,255,0.9);
@@ -50,12 +50,12 @@
   padding: 4px 5px;
   border: var(--ai-border);
 }
-.ai-explanation{
+#post-ai .ai-explanation{
   margin-top: 11px;
   font-size: 15.5px;
   line-height: 1.4;
 }
-.ai-cursor{
+#post-ai .ai-cursor{
   display: inline-block;
   width: 7px;
   background: var(--ai-cursor);
@@ -69,14 +69,14 @@
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
 }
-.ai-btn-box{
+#post-ai .ai-btn-box{
   font-size: 15.5px;
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.ai-btn-item{
+#post-ai .ai-btn-item{
   padding: 5px 10px;
   margin: 10px 16px 0px 5px;
   width: fit-content;
@@ -96,19 +96,19 @@
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
 }
-.ai-btn-item:hover{
+#post-ai .ai-btn-item:hover{
   background: #49b0f5dc;
 }
-.ai-recommend{
+#post-ai .ai-recommend{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.ai-recommend-item{
+#post-ai .ai-recommend-item{
   width: 50%;
   margin-top: 2px;
 }
-.ai-recommend-item a{
+#post-ai .ai-recommend-item a{
   border-bottom: 2px solid #4c98f7;
   padding: 0 .2em;
   color: #4c98f7;
@@ -120,7 +120,7 @@
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
 }
-.ai-recommend-item a:hover{
+#post-ai .ai-recommend-item a:hover{
   background-color: #49b1f5;
   border-bottom: 2px solid #49b1f5;
   color: #fff;
