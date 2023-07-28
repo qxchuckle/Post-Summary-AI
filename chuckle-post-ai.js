@@ -30,6 +30,7 @@ function ChucklePostAI(AI_option) {
   }
   const post_ai_box = document.createElement('div');
   post_ai_box.className = 'post-ai';
+  post_ai_box.setAttribute('id', 'post-ai');
   targetElement.insertBefore(post_ai_box, targetElement.firstChild);
   post_ai_box.innerHTML = `<div class="ai-title">
       <div class="ai-title-text">${interface.name}</div>
