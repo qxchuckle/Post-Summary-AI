@@ -11,7 +11,7 @@ function ChucklePostAI(AI_option) {
   const currentURL = window.location.href;
   // 排除页面
   if(AI_option.eliminate && AI_option.eliminate.some(item => currentURL.includes(item))){
-    console.log("已为当前页面排除摘要AI");
+    console.log("Post-Summary-AI：已排除当前页面");
     return;
   }
   // 挂载
