@@ -6,7 +6,8 @@
 
 ## 1.效果
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/af9236a1-fa37-4446-b5d3-0e9dd4d59ae6)
-![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/79959200-6816-45c1-8528-299909402eb9)
+![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/08e897d2-90a4-4497-ac11-39b4a1f43cbd)
+
 
 ## 2.快速上手
 非常简单，引入下面这些代码到你的网站内，并修改配置项后即可
