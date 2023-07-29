@@ -173,6 +173,8 @@ new ChucklePostAI({
 ## 7.技术支持
 若你的网站接入该项目有困难，可以提 [issues](https://github.com/qxchuckle/Post-Summary-AI/issues)，简单讲述你所遇到的困难，并附上**网站地址**，你将会获得快速的回复。
 
+工单系统、反馈互动社区：https://support.qq.com/product/600565
+
 也可以加入**QQ频道**：点击链接加入讨论子频道【TianliGPT 问题交流】：https://pd.qq.com/s/7cx85i9l0
 
 ***
