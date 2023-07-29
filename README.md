@@ -24,9 +24,9 @@ cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资
 
 ```html
 <!-- css -->
-<link rel="stylesheet" href="https://cdn.chuqis.com/gh/qxchuckle/Post-Summary-AI@4.4/chuckle-post-ai.css">
+<link rel="stylesheet" href="https://cdn.chuqis.com/gh/qxchuckle/Post-Summary-AI@4.5/chuckle-post-ai.css">
 <!-- chuckle-post-ai.js现在可以在网页结构的任何位置插入，只要你能够 -->
-<script src="https://cdn.chuqis.com/gh/qxchuckle/Post-Summary-AI@4.4/chuckle-post-ai.js"></script>
+<script src="https://cdn.chuqis.com/gh/qxchuckle/Post-Summary-AI@4.5/chuckle-post-ai.js"></script>
 <!-- 但要确保的是，AI构造代码一定要在chuckle-post-ai.js之后插入 -->
 <script data-pjax defer>
   // AI构造函数
