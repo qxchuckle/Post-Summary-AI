@@ -7,10 +7,13 @@
 
 > 该项目理论支持所有类型的网站，无论动态还是静态站，起初该项目是为了个人博客而生的
 
+***
+
 ## 1.效果
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/a0029aac-7f6a-4888-b037-8cabbdc76053)
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/08e897d2-90a4-4497-ac11-39b4a1f43cbd)
 
+***
 
 ## 2.快速上手
 非常简单，引入下面这些代码到你的网站内，并修改配置项后即可
@@ -55,6 +58,8 @@ cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资
 ## 3.什么是TianliGPT
 TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要提取摘要的文本内容发送给TianliGPT，稍等一会他就可以给你发送一个基于这段文本内容的摘要。该服务端暂未开源。
 
+***
+
 ## 4.tianliGPT-KEY
 tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f25254001e7c00)中购买，10元5万字符（常有优惠）。请求过的内容再次请求不会消耗key，可以无限期使用。
 
@@ -66,11 +71,34 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 1. 购买完成后，进入[管理后台](https://summary.zhheo.com/)：summary.zhheo.com ，登录后点击右上角的“添加新网站”，输入密钥即可绑定成功。
 2. 若需要进行**本地调试**，请在管理后台将 127.0.0.1:端口 加入白名单，否则会触发防盗KEY，无法正常获取摘要。
 
+***
+
 ## 5.版本升级
 修改引入资源的版本号，版本号可在[releases](https://github.com/qxchuckle/Post-Summary-AI/releases)查看
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/7e9d3ef9-bdfa-40f7-bd97-9183a02e96d8)
 
+***
+
 ## 6.进阶操作
+**所有进阶配置项：**
+
+```js
+new ChucklePostAI({
+  // ......
+  interface: {
+    name: "QX-AI", // AI名称
+    introduce: "我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。", // 自我介绍
+    version: "GPT-4", // 右上角GPT版本文字
+  },
+  // 获取文章内容时，排除某些元素及其子元素的内容
+  exclude: ['post-ai', 'highlight', 'Copyright-Notice', 'post-series', 'mini-sandbox'],
+  // 让指定页面、文章不显示摘要AI
+  eliminate: [],
+  // 摘要AI挂载后直接请求并显示摘要
+  summary_directly: true,
+})
+```
+
 **1、自定义界面信息，修改AI名称和自我介绍等**，新增 `interface` 配置项。
 
 ```js
@@ -124,15 +152,35 @@ eliminate: ['544ba770', '/article/544ba770.html'],
 
 另外，当 `el` 配置项无法区分一般页面和文章页面时，这个配置项也会有用。
 
+***
+
+**4、摘要AI挂载后直接请求并显示摘要**  
+默认是显示摘要AI的自我介绍，需要访客点击指定按钮后才显示摘要，但你可能想要**直接**显示摘要，那么 `summary_directly` 配置项正合你意。
+
+将该配置项设置为 true 后，摘要AI会在挂载完后立刻请求并显示摘要。
+
+```js
+new ChucklePostAI({
+  // ......
+  summary_directly: true,
+})
+```
+
+***
+
 ## 7.技术支持
 若你的网站接入该项目有困难，可以提 [issues](https://github.com/qxchuckle/Post-Summary-AI/issues)，简单讲述你所遇到的困难，并附上**网站地址**，你将会获得快速的回复。
 
 也可以加入**QQ频道**：点击链接加入讨论子频道【TianliGPT 问题交流】：https://pd.qq.com/s/7cx85i9l0
 
+***
+
 ## 8.部署展示
 这里展示已经成功部署 Post-Summary-AI 的网站，若你已成功部署，可以提 [issues](https://github.com/qxchuckle/Post-Summary-AI/issues)，会将你展示于此
 
 1. [MoyuqLのBlog](https://blog.moyuql.top/)
+
+***
 
 ## 9.同类友情项目
 [Post-Abstract-AI](https://github.com/qxchuckle/Post-Abstract-AI)
