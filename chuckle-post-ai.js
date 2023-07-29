@@ -238,7 +238,11 @@ function ChucklePostAI(AI_option) {
         funArr[index]();
       });
     });
-    aiIntroduce();
+    if(AI_option.summary_directly){
+      aiGenerateAbstract();
+    }else{
+      aiIntroduce();
+    }
     // 获取或生成访客ID
     visitorId = localStorage.getItem('visitorId') || await generateVisitorID();
   }
