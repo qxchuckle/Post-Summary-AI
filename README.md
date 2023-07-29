@@ -55,6 +55,8 @@ cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资
 
 项目开发不易，可以前往[爱发电](https://afdian.net/a/chuckle)给予我赞助
 
+***
+
 ## 3.什么是TianliGPT
 TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要提取摘要的文本内容发送给TianliGPT，稍等一会他就可以给你发送一个基于这段文本内容的摘要。该服务端暂未开源。
 
