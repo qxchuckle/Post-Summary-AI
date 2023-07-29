@@ -44,28 +44,22 @@ cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资
     title_el: '.post-title',
     // 文章推荐方式，all：匹配数据库内所有文章进行推荐，web：仅当前站内的文章，默认all
     rec_method: 'web',
-    // 获取文章内容时，需要排除的元素及其子元素，默认如下
-    exclude: ['highlight', 'Copyright-Notice', 'post-ai', 'post-series', 'mini-sandbox'],
   })
 </script>
 ```
 
 **AI构造函数 `ChucklePostAI({ /* 传入配置对象 */ })` 详解**
-1. `el` 文章内容所在的元素属性的选择器，也是AI挂载的容器，AI将会挂载到该容器的最前面
-2. `key` 驱动AI所必须的key，即是tianliGPT后端服务所必须的key
-3. `title_el` 文章标题所在的元素属性的选择器，默认获取当前网页的标题
-4. `rec_method` 文章推荐方式，all：匹配数据库内所有文章进行推荐，web：仅当前站内的文章，默认all
-5. `exclude` 获取文章内容时，需要排除的元素及其子元素
-
+1. `el` **文章内容**所在的元素属性的选择器，也是AI**挂载**的容器，AI将会挂载到该容器的最前面
+2. `key` 驱动AI所必须的key，即是tianliGPT后端服务所必须的**key**
+3. `title_el` **文章标题**所在的元素属性的选择器，默认获取当前**网页的标题**
+4. `rec_method` 文章推荐方式，**all**：匹配数据库内所有文章进行推荐，**web**：仅当前站内的文章，**默认all**
 
 ## 4.tianliGPT-KEY
 tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f25254001e7c00)中购买，10元5万字符（常有优惠）。请求过的内容再次请求不会消耗key，可以无限期使用。
 
 - 相比实时请求openai，使用tianliGPT可以让你请求过的内容不再消耗key，适合生产环境。
 - 相比实时请求openai，使用tianliGPT可以在国内更快速的获取摘要。
-
 - key消耗完毕，已经请求过的内容仍然可以继续请求，避免了被恶意请求造成的资金损失和业务停摆。
-
 - 符合中国大陆法律法规。
 
 购买完成后，进入管理后台：https://summary.zhheo.com/
@@ -90,7 +84,23 @@ new ChucklePostAI({
 })
 ```
 
-**2、让指定页面、文章不显示摘要AI**
+**2、获取文章内容时，需要排除的元素及其子元素的内容**
+你可能不需要文章内一些元素的内容去生成摘要，或者这些内容对于生成摘要并没有帮助，比如代码框、版权信息等等。
+
+如有需要可以使用 `exclude` 配置项。
+
+往数组中加入需要排除的元素的 **className**，摘要AI会自动跳过对该**元素及其子元素**内容的获取。
+
+```js
+new ChucklePostAI({
+  // ......
+  exclude: ['post-ai', 'highlight', 'Copyright-Notice', 'post-series', 'mini-sandbox'],
+})
+```
+
+以上是该配置项的默认值，建议保留对 **post-ai** 也就是摘要元素本身的排除，【todo】后续版本会将其默认进行排除，无论是否做了配置，但考虑到兼容性，在配置项中最好也做排除
+
+**3、让指定页面、文章不显示摘要AI**
 可能你想让某篇文章没有摘要AI，这个 `eliminate`  配置就对你有用。通过匹配当前 URL 中**唯一标识**的关键字符串实现排除。
 
 ```js
@@ -111,7 +121,9 @@ eliminate: ['544ba770', '/article/544ba770.html'],
 另外，当 `el` 配置项无法区分一般页面和文章页面时，这个配置项也会有用。
 
 ## 7.技术支持
-点击链接加入讨论子频道【TianliGPT 问题交流】：https://pd.qq.com/s/7cx85i9l0
+若你的网站接入该项目有困难，可以提 [issues](https://github.com/qxchuckle/Post-Summary-AI/issues)，简单讲述你所遇到的困难，并附上**网站地址**，你将会获得快速的回复。
+
+也可以加入**QQ频道**：点击链接加入讨论子频道【TianliGPT 问题交流】：https://pd.qq.com/s/7cx85i9l0
 
 ## 8.同类友情项目
 [Post-Abstract-AI](https://github.com/qxchuckle/Post-Abstract-AI)
