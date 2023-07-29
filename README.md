@@ -1,8 +1,11 @@
 # Post-Summary-AI
-
-一个较通用的文章摘要、简介生成AI，基于tianliGPT后端
+一个较通用的，生成网站内文章**摘要**(简介)，并**推荐**相关文章的AI(前端实现)，基于tianliGPT后端
 
 你可以前往这篇文章查看效果[文章添加预设或实时生成的AI简介](https://www.qcqx.cn/article/17d3383a.html)
+
+更多的 Post-Summary-AI 部署效果可以往后查看[部署展示](https://github.com/qxchuckle/Post-Summary-AI#8%E9%83%A8%E7%BD%B2%E5%B1%95%E7%A4%BA)
+
+> 该项目理论支持所有类型的网站，无论动态还是静态站，起初该项目是为了个人博客而生的
 
 ## 1.效果
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/a0029aac-7f6a-4888-b037-8cabbdc76053)
@@ -46,6 +49,8 @@ cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资
 4. `rec_method` 文章推荐方式，**all**：匹配数据库内所有文章进行推荐，**web**：仅当前站内的文章，**默认all**
 
 >更多**进阶**配置项，请往后查看[进阶操作](https://github.com/qxchuckle/Post-Summary-AI#6%E8%BF%9B%E9%98%B6%E6%93%8D%E4%BD%9C)
+
+项目开发不易，可以前往[爱发电](https://afdian.net/a/chuckle)给予我赞助
 
 ## 3.什么是TianliGPT
 TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要提取摘要的文本内容发送给TianliGPT，稍等一会他就可以给你发送一个基于这段文本内容的摘要。该服务端暂未开源。
@@ -120,7 +125,12 @@ eliminate: ['544ba770', '/article/544ba770.html'],
 
 也可以加入**QQ频道**：点击链接加入讨论子频道【TianliGPT 问题交流】：https://pd.qq.com/s/7cx85i9l0
 
-## 8.同类友情项目
+## 8.部署展示
+这里展示已经成功部署 Post-Summary-AI 的网站，若你已成功部署，可以提 [issues](https://github.com/qxchuckle/Post-Summary-AI/issues)，会将你展示于此
+
+1. [MoyuqLのBlog](https://blog.moyuql.top/)
+
+## 9.同类友情项目
 [Post-Abstract-AI](https://github.com/qxchuckle/Post-Abstract-AI)
 
 友情项目和本项目都是基于tianliGPT的AI摘要前端实现，可自行选择适合你网站的项目。
