@@ -8,17 +8,7 @@
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/af9236a1-fa37-4446-b5d3-0e9dd4d59ae6)
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/79959200-6816-45c1-8528-299909402eb9)
 
-## 2.什么是TianliGPT
-
-TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要提取摘要的文本内容发送给TianliGPT，稍等一会他就可以给你发送一个基于这段文本内容的摘要。
-
-- 实时生成的摘要
-- 自动生成，无需人工干预
-- 一次生成，再次生成无需消耗key
-- 包含文字审核过滤，适用于中国大陆
-- 支持中国大陆访问
-
-## 3.快速上手
+## 2.快速上手
 非常简单，引入下面这些代码到你的网站内，并修改配置项后即可
 
 TIP: 为避免CDN和浏览器缓存的影响，建议指定**资源版本号**使用
@@ -54,17 +44,21 @@ cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资
 3. `title_el` **文章标题**所在的元素属性的选择器，默认获取当前**网页的标题**
 4. `rec_method` 文章推荐方式，**all**：匹配数据库内所有文章进行推荐，**web**：仅当前站内的文章，**默认all**
 
+>更多**进阶**配置项，请往后查看[进阶操作](https://github.com/qxchuckle/Post-Summary-AI#6%E8%BF%9B%E9%98%B6%E6%93%8D%E4%BD%9C)
+
+## 3.什么是TianliGPT
+TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要提取摘要的文本内容发送给TianliGPT，稍等一会他就可以给你发送一个基于这段文本内容的摘要。该服务端暂未开源。
+
 ## 4.tianliGPT-KEY
 tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f25254001e7c00)中购买，10元5万字符（常有优惠）。请求过的内容再次请求不会消耗key，可以无限期使用。
 
-- 相比实时请求openai，使用tianliGPT可以让你请求过的内容不再消耗key，适合生产环境。
-- 相比实时请求openai，使用tianliGPT可以在国内更快速的获取摘要。
+- 相比实时请求OpenAI，使用tianliGPT可以让你请求过的内容不再消耗key，并在国内更快速的获取摘要，适合生产环境。
 - key消耗完毕，已经请求过的内容仍然可以继续请求，避免了被恶意请求造成的资金损失和业务停摆。
 - 符合中国大陆法律法规。
 
-购买完成后，进入管理后台：https://summary.zhheo.com/
-
-登录后点击右上角的“添加新网站”，输入密钥即可绑定成功。
+**注意事项：**
+1. 购买完成后，进入[管理后台](https://summary.zhheo.com/)：summary.zhheo.com ，登录后点击右上角的“添加新网站”，输入密钥即可绑定成功。
+2. 若需要进行**本地调试**，请在管理后台将 127.0.0.1:端口 加入白名单，否则会触发防盗KEY，无法正常获取摘要。
 
 ## 5.版本升级
 修改引入资源的版本号，版本号可在[releases](https://github.com/qxchuckle/Post-Summary-AI/releases)查看
