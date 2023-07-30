@@ -51,7 +51,7 @@ cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资
 3. `title_el` **文章标题**所在的元素属性的选择器，默认获取当前**网页的标题**
 4. `rec_method` 文章推荐方式，**all**：匹配数据库内所有文章进行推荐，**web**：仅当前站内的文章，**默认all**
 
->更多**进阶**配置项，请往后查看[进阶操作](https://github.com/qxchuckle/Post-Summary-AI#6%E8%BF%9B%E9%98%B6%E6%93%8D%E4%BD%9C)
+>更多**进阶**配置项，请往后查看[进阶操作](https://github.com/qxchuckle/Post-Summary-AI/blob/master/Advanced.md)
 
 项目开发不易，可以前往[爱发电](https://afdian.net/a/chuckle)给予我赞助
 
@@ -82,93 +82,7 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 ***
 
 ## 6.进阶操作
-**所有进阶配置项：**
-
-```js
-new ChucklePostAI({
-  // ......
-  interface: {
-    name: "QX-AI", // AI名称
-    introduce: "我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。", // 自我介绍
-    version: "GPT-4", // 右上角GPT版本文字
-  },
-  // 获取文章内容时，排除某些元素及其子元素的内容
-  exclude: ['post-ai', 'highlight', 'Copyright-Notice', 'post-series', 'mini-sandbox'],
-  // 让指定页面、文章不显示摘要AI
-  eliminate: [],
-  // 摘要AI挂载后直接请求并显示摘要
-  summary_directly: true,
-})
-```
-
-**1、自定义界面信息，修改AI名称和自我介绍等**，新增 `interface` 配置项。
-
-```js
-new ChucklePostAI({
-  // ......
-  interface: {
-    name: "QX-AI", // AI名称
-    introduce: "我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。", // 自我介绍
-    version: "GPT-4", // 右上角GPT版本文字
-  },
-})
-```
-
-***
-
-**2、获取文章内容时，排除某些元素及其子元素的内容**  
-你可能不需要文章内一些元素的内容去生成摘要，或者这些内容对于生成摘要并没有帮助，比如代码框、版权信息等等。
-
-如有需要可以使用 `exclude` 配置项。
-
-往数组中加入需要排除的元素的 **className**，摘要AI会自动跳过对该**元素及其子元素**内容的获取。
-
-```js
-new ChucklePostAI({
-  // ......
-  exclude: ['post-ai', 'highlight', 'Copyright-Notice', 'post-series', 'mini-sandbox'],
-})
-```
-
-以上是该配置项的默认值，建议保留对 **post-ai** 也就是摘要元素本身的排除，【todo】后续版本会将其默认进行排除，无论是否做了配置，但考虑到兼容性，在配置项中最好也做排除
-
-***
-
-**3、让指定页面、文章不显示摘要AI**  
-可能你想让某篇文章没有摘要AI，这个 `eliminate`  配置就对你有用。通过匹配当前 URL 中**唯一标识**的关键字符串实现排除。
-
-```js
-new ChucklePostAI({
-  // ......
-  eliminate: [],
-})
-```
-
-例如你想让 https://www.qcqx.cn/article/544ba770.html 这篇文章不显示摘要AI，544ba770 是可以唯一标识该文章的字符串，则将其加入到数组中
-
-当然，你也可以将除去域名外的路径，填入数组中。下面展示了多种写法。
-
-```js
-eliminate: ['544ba770', '/article/544ba770.html'],
-```
-
-另外，当 `el` 配置项无法区分一般页面和文章页面时，这个配置项也会有用。
-
-***
-
-**4、摘要AI挂载后直接请求并显示摘要**  
-默认是显示摘要AI的自我介绍，需要访客点击指定按钮后才显示摘要，但你可能想要**直接**显示摘要，那么 `summary_directly` 配置项正合你意。
-
-将该配置项设置为 true 后，摘要AI会在挂载完后立刻请求并显示摘要。
-
-```js
-new ChucklePostAI({
-  // ......
-  summary_directly: true,
-})
-```
-
-***
+摘要AI的**进阶用法**，以及一些**实验性**功能：[进阶操作](https://github.com/qxchuckle/Post-Summary-AI/blob/master/Advanced.md)
 
 ## 7.技术支持
 若你的网站接入该项目有困难，可以提 [issues](https://github.com/qxchuckle/Post-Summary-AI/issues)，简单讲述你所遇到的困难，并附上**网站地址**，你将会获得快速的回复。
