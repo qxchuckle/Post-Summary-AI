@@ -20,13 +20,13 @@
 
 TIP: 为避免CDN和浏览器缓存的影响，建议指定**资源版本号**使用
 
-cdn1.tianli0.top 和 cdn.chuqis.com是公益cdn，若无法访问或为确保资源的稳定，建议下载仓库对应文件至本地引入
+cdn1.tianli0.top、jsd.onmicrosoft.cn是公益cdn，若无法访问或为确保资源的稳定，建议下载仓库对应文件至本地引入
 
 ```html
 <!-- css -->
-<link rel="stylesheet" href="https://cdn.chuqis.com/gh/qxchuckle/Post-Summary-AI@4.5/chuckle-post-ai.css">
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@4.5/chuckle-post-ai.css">
 <!-- chuckle-post-ai.js现在可以在网页结构的任何位置插入，只要你能够 -->
-<script src="https://cdn.chuqis.com/gh/qxchuckle/Post-Summary-AI@4.5/chuckle-post-ai.js"></script>
+<script src="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@4.5/chuckle-post-ai.js"></script>
 <!-- 但要确保的是，AI构造代码一定要在chuckle-post-ai.js之后插入 -->
 <script data-pjax defer>
   // AI构造函数
