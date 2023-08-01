@@ -14,8 +14,14 @@ function ChucklePostAI(AI_option) {
     console.log("Post-Summary-AI：已排除当前页面");
     return;
   }
-  // 挂载
-  const targetElement = document.querySelector(AI_option.el ? AI_option.el : '#post #article-container');
+  // 获取挂载元素，即文章内容所在的容器元素
+  let targetElement = "";
+  // 若el配置不存在则自动获取，如果auto_mount配置为真也自动获取
+  if(!AI_option.auto_mount && AI_option.el){
+    targetElement = document.querySelector(AI_option.el ? AI_option.el : '#post #article-container');
+  }else{
+    targetElement = getArticleElements();
+  }
   // 获取文章标题，默认获取网页标题
   const post_title = document.querySelector(AI_option.title_el) ? document.querySelector(AI_option.title_el).textContent : document.title;
   if (!targetElement) {
@@ -418,6 +424,82 @@ function ChucklePostAI(AI_option) {
       return outputText;
     }
   }
+  // 实验性功能，自动获取文章内容所在容器元素
+  function getArticleElements(){
+    // 计算元素的后代元素总个数
+    function countDescendants(element) {
+      let count = 1;
+      for (const child of element.children) {
+        count += countDescendants(child);
+      }
+      return count;
+    }
+    // 判断是否有要排除的元素
+    function judgeElement(element) {
+      const excludedTags = ['IFRAME', 'FOOTER', 'HEADER', 'BLOCKQUOTE']; // 添加要排除的标签
+      if(excludedTags.includes(element.tagName)){
+        return true;
+      }
+      const exclusionStrings = ['aplayer', 'exclude1', 'exclude2', 'exclude3'];
+      return Array.from(element.classList).some(className => exclusionStrings.some(exclusion => className.includes(exclusion)));
+    }
+    // 深度搜索，找到得分最高的父元素
+    function findMaxHeadingParentElement(element) {
+      const tagScores = {
+        'H1': 1.5,
+        'H2': 1,
+        'H3': 0.5,
+        'P': 1
+      };
+      let maxScore = 0;
+      let maxHeadingParentElement = null;
+      function dfs(element) {
+        if (judgeElement(element)) {
+          return;
+        }
+        let score = 0;
+        for (const child of element.children) {
+          if (child.tagName in tagScores) {
+            score += tagScores[child.tagName];
+          }
+        }
+        if (score > maxScore) {
+          maxScore = score;
+          maxHeadingParentElement = element;
+        }
+        for (const child of element.children) {
+          dfs(child);
+        }
+      }
+      dfs(element);
+      return maxHeadingParentElement;
+    }
+    // 广度优先搜索，标记所有元素，并找到得分最高的父元素
+    function findArticleContentElement() {
+      const queue = [document.body];
+      let maxDescendantsCount = 0;
+      let articleContentElement = null;
+      while (queue.length > 0) {
+        const currentElement = queue.shift();
+        // 判断当前元素是否要排除
+        if (judgeElement(currentElement)) {
+          continue;
+        }
+        const descendantsCount = countDescendants(currentElement);
+        if (descendantsCount > maxDescendantsCount) {
+          maxDescendantsCount = descendantsCount;
+          articleContentElement = currentElement;
+        }
+        for (const child of currentElement.children) {
+          queue.push(child);
+        }
+      }
+      return findMaxHeadingParentElement(articleContentElement);
+    }
+    // 返回文章内容所在的容器元素
+    return findArticleContentElement();
+  }
+
   // 请求个性化推荐
   async function personalizedRecommend(){
     completeGenerate = false;
