@@ -37,6 +37,8 @@ function ChucklePostAI(AI_option) {
     version: "GPT-4",
     ...AI_option.interface
   }
+  insertCSS(); // 插入css
+  // 插入html结构
   const post_ai_box = document.createElement('div');
   post_ai_box.className = 'post-ai';
   post_ai_box.setAttribute('id', 'post-ai');
@@ -504,6 +506,16 @@ function ChucklePostAI(AI_option) {
     return findArticleContentElement();
   }
 
+  // 插入css
+  function insertCSS(){
+    const styleId = 'qx-ai-style';
+    if(document.getElementById(styleId)) { return; }
+    const styleElement = document.createElement('style');
+    styleElement.id = styleId;
+    styleElement.textContent = `:root{--ai-font-color:#353535;--ai-post-bg:rgba(255,255,255,0.32);--ai-border:1px solid #e3e8f7bd;--ai-tag-bg:rgba(48,52,63,0.86);--ai-cursor:#333;}[data-theme=dark],.theme-dark,body.dark,body.dark-theme{--ai-font-color:rgba(255,255,255,0.86);--ai-post-bg:rgba(48,52,63,0.35);--ai-border:1px solid #3d3d3f;--ai-tag-bg:#30343f;--ai-cursor:rgb(255,255,255,0.9);}#post-ai.post-ai{background:var(--ai-post-bg);border-radius:12px;padding:12px 16px;line-height:1.3;border:var(--ai-border);margin-top:10px;margin-bottom:6px;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-title{display:flex;color:var(--ai-font-color);border-radius:8px;align-items:center;padding:0 5px;}#post-ai .ai-title i{font-weight:800;}#post-ai .ai-title-text{font-weight:bold;margin-left:8px;}#post-ai .ai-tag{font-size:12px;background-color:var(--ai-tag-bg);color:rgba(255,255,255,0.9);border-radius:4px;margin-left:auto;line-height:1;padding:4px 5px;border:var(--ai-border);}#post-ai .ai-explanation{margin-top:11px;font-size:15.5px;line-height:1.4;}#post-ai .ai-cursor{display:inline-block;width:7px;background:var(--ai-cursor);height:16px;margin-bottom:-2px;opacity:0.95;margin-left:3px;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-btn-box{font-size:15.5px;width:100%;display:flex;flex-direction:row;flex-wrap:wrap;}#post-ai .ai-btn-item{padding:5px 10px;margin:10px 16px 0px 5px;width:fit-content;line-height:1;background:rgba(48,52,63,0.75);border:var(--ai-border);color:#fff;border-radius:6px 6px 6px 0;-webkit-border-radius:6px 6px 6px 0;-moz-border-radius:6px 6px 6px 0;-ms-border-radius:6px 6px 6px 0;-o-border-radius:6px 6px 6px 0;user-select:none;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-btn-item:hover{background:#49b0f5dc;}#post-ai .ai-recommend{display:flex;flex-direction:row;flex-wrap:wrap;}#post-ai .ai-recommend-item{width:50%;margin-top:2px;}#post-ai .ai-recommend-item a{border-bottom:2px solid #4c98f7;padding:0 .2em;color:#4c98f7;font-weight:700;text-decoration:none;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-recommend-item a:hover{background-color:#49b1f5;border-bottom:2px solid #49b1f5;color:#fff;border-radius:5px;}`;
+    document.head.appendChild(styleElement);
+  }
+
   // 请求个性化推荐
   async function personalizedRecommend(){
     completeGenerate = false;
@@ -525,6 +537,7 @@ function ChucklePostAI(AI_option) {
       return null;
     }
   }
+
   ai_init();
 }
 // 兼容旧版本配置项

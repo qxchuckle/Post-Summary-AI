@@ -18,25 +18,20 @@
 ## 2.快速上手
 非常简单，引入下面这些代码到你的网站内，并修改配置项后即可
 
-TIP: 为避免CDN和浏览器缓存的影响，建议指定**资源版本号**使用
+cdn1.tianli0.top、jsd.onmicrosoft.cn 是公益cdn，若无法访问或为确保资源的稳定，建议下载仓库对应文件至本地引入
 
-cdn1.tianli0.top、jsd.onmicrosoft.cn是公益cdn，若无法访问或为确保资源的稳定，建议下载仓库对应文件至本地引入
+**基本配置**如下，更多**进阶**配置项和**实验性**功能，请查看[进阶操作](https://github.com/qxchuckle/Post-Summary-AI/blob/master/Advanced.md)
 
 ```html
-<!-- css -->
-<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@4.6/chuckle-post-ai.css">
-<!-- chuckle-post-ai.js现在可以在网页结构的任何位置插入，只要你能够 -->
+<!-- chuckle-post-ai.js可以在网页结构的任何位置插入，只要你能够 -->
 <script src="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@4.6/chuckle-post-ai.js"></script>
 <!-- 但要确保的是，AI构造代码一定要在chuckle-post-ai.js之后插入 -->
 <script data-pjax defer>
-  // AI构造函数
   new ChucklePostAI({
-    /* 必须配置 */
     // 文章内容所在的元素属性的选择器，也是AI挂载的容器，AI将会挂载到该容器的最前面
     el: '#post>#article-container',
     // 驱动AI所必须的key，即是tianliGPT后端服务所必须的key
     key: '123456',
-    /* 非必须配置，但最好根据自身需要进行配置 */
     // 文章标题所在的元素属性的选择器，默认获取当前网页的标题
     title_el: '.post-title',
     // 文章推荐方式，all：匹配数据库内所有文章进行推荐，web：仅当前站内的文章，默认all
@@ -45,13 +40,13 @@ cdn1.tianli0.top、jsd.onmicrosoft.cn是公益cdn，若无法访问或为确保�
 </script>
 ```
 
+**4.7**版本开始，无需再手动引入 CSS，JS 会在合适时机自动插入 CSS
+
 **AI构造函数 `ChucklePostAI({ /* 传入配置对象 */ })` 详解**
 1. `el` **文章内容**所在的元素属性的选择器，也是AI**挂载**的容器，AI将会挂载到该容器的最前面
 2. `key` 驱动AI所必须的key，即是tianliGPT后端服务所必须的**key**
 3. `title_el` **文章标题**所在的元素属性的选择器，默认获取当前**网页的标题**
 4. `rec_method` 文章推荐方式，**all**：匹配数据库内所有文章进行推荐，**web**：仅当前站内的文章，**默认all**
-
->更多**进阶**配置项和**实验性**功能，请查看[进阶操作](https://github.com/qxchuckle/Post-Summary-AI/blob/master/Advanced.md)
 
 项目开发不易，可以前往[爱发电](https://afdian.net/a/chuckle)给予我赞助
 
