@@ -3,13 +3,12 @@
 
 你可以前往这篇文章查看效果[文章添加预设或实时生成的AI简介](https://www.qcqx.cn/article/17d3383a.html)
 
-更多的 Post-Summary-AI 部署效果可以往后查看[部署展示](https://github.com/qxchuckle/Post-Summary-AI#8%E9%83%A8%E7%BD%B2%E5%B1%95%E7%A4%BA)
-
 > 该项目理论支持所有类型的网站，无论动态还是静态站，起初该项目是为了个人博客而生的
 
 ***
 
 ## 1.效果
+更多的 Post-Summary-AI 部署效果可以往后查看[部署展示](https://github.com/qxchuckle/Post-Summary-AI#8%E9%83%A8%E7%BD%B2%E5%B1%95%E7%A4%BA)
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/a0029aac-7f6a-4888-b037-8cabbdc76053)
 ![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/08e897d2-90a4-4497-ac11-39b4a1f43cbd)
 
