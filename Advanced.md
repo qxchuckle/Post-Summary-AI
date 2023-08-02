@@ -53,7 +53,7 @@ new ChucklePostAI({
 
 ***
 
-**3、让指定页面、文章不显示摘要AI**  
+**3、黑名单：让指定页面、文章不显示摘要AI**  
 可能你想让某篇文章没有摘要AI，这个 `eliminate`  配置就对你有用。通过匹配当前 URL 中**唯一标识**的关键字符串实现排除。
 
 ```js
@@ -75,7 +75,27 @@ eliminate: ['544ba770', '/article/544ba770.html'],
 
 ***
 
-**4、摘要AI挂载后直接请求并显示摘要**  
+**4、白名单：只让指定页面显示摘要AI**
+当你需要确定在某类页面才有摘要AI时，`whitelist` 这个配置项会对你有用。
+
+```js
+new ChucklePostAI({
+  // ......
+  whitelist: [],
+})
+```
+
+和黑名单差不多的用法，例如你只想让 https://www.qcqx.cn/article/***.html 这种文章页面显示摘要AI，article 是可以唯一标识该类页面的字符串，则将其加入到数组中。
+
+下面展示了多种写法。
+
+```js
+whitelist: ['article', '/article/'],
+```
+
+***
+
+**5、摘要AI挂载后直接请求并显示摘要**  
 默认是显示摘要AI的自我介绍，需要访客点击指定按钮后才显示摘要，但你可能想要**直接**显示摘要，那么 `summary_directly` 配置项正合你意。
 
 将该配置项设置为 true 后，摘要AI会在挂载完后立刻请求并显示摘要。
@@ -116,8 +136,10 @@ new ChucklePostAI({
 new ChucklePostAI({
   auto_mount: true, // 开启自动挂载
   key: '123456', // key还是必须要的
+  whitelist: ['article', '/article/'], // 白名单是必要的
 })
-
 ```
+
+是的，`whitelist` 白名单是必要的，请查看进阶操作第四点，不然所有的页面都会尝试自动挂载。
 
 ***

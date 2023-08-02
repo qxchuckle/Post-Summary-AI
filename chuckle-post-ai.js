@@ -10,8 +10,12 @@ function ChucklePostAI(AI_option) {
   }
   const currentURL = window.location.href;
   // 排除页面
-  if(AI_option.eliminate && AI_option.eliminate.some(item => currentURL.includes(item))){
-    console.log("Post-Summary-AI：已排除当前页面");
+  if(AI_option.eliminate && AI_option.eliminate.length && AI_option.eliminate.some(item => currentURL.includes(item))){
+    console.log("Post-Summary-AI 已排除当前页面(黑名单)");
+    return;
+  }
+  if(AI_option.whitelist && AI_option.whitelist.length && !AI_option.whitelist.some(item => currentURL.includes(item))){
+    console.log("Post-Summary-AI 已排除当前页面(白名单)");
     return;
   }
   // 获取挂载元素，即文章内容所在的容器元素
