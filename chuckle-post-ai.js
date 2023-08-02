@@ -444,7 +444,7 @@ function ChucklePostAI(AI_option) {
       if(excludedTags.includes(element.tagName)){
         return true;
       }
-      const exclusionStrings = ['aplayer', 'exclude1', 'exclude2', 'exclude3'];
+      const exclusionStrings = ['aplayer', 'comment']; // 排除包含其中字符串的className
       return Array.from(element.classList).some(className => exclusionStrings.some(exclusion => className.includes(exclusion)));
     }
     // 深度搜索，找到得分最高的父元素
