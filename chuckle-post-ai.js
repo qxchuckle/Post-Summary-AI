@@ -156,10 +156,15 @@ function ChucklePostAI(AI_option) {
     observer.disconnect();// 暂停上一次监听
   }
   function startAI(str, df = true) {
-    resetAI(df);
-    ai_str = str;
-    ai_str_length = ai_str.length;
-    observer.observe(post_ai);//启动新监听
+    // 如果打字机配置项存在且为false，则关闭打字机，否则默认开启打字机效果
+    if(AI_option.hasOwnProperty('typewriter') && !AI_option.typewriter){
+      explanation.innerHTML = str;
+    }else{
+      resetAI(df);
+      ai_str = str;
+      ai_str_length = ai_str.length;
+      observer.observe(post_ai);//启动新监听
+    } 
   }
   function aiIntroduce() {
     startAI(interface.introduce);

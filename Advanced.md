@@ -16,7 +16,9 @@ new ChucklePostAI({
   // 让指定页面、文章不显示摘要AI
   eliminate: [],
   // 摘要AI挂载后直接请求并显示摘要
-  summary_directly: true,
+  summary_directly: false,
+  // 控制打字机效果
+  typewriter: true,
 })
 ```
 
@@ -108,6 +110,20 @@ new ChucklePostAI({
 ```
 
 > 不推荐前后端分离的网站打开此配置项(服务端渲染的动态站不受此影响)，当文章还没从后端返回到前端渲染，摘要AI将获取到空的文章内容，当然大部分动态站都有文章加载好后再执行部分JS的配置，将 `new ChucklePostAI()` 放入其中，即可避免上述问题。
+
+***
+
+**6、控制打字机效果**  
+虽然默认开启的打字机效果挺Cool，但你不喜欢，也可以用 `typewriter` 去关闭它
+
+false 关闭，true 开启，默认是开启
+
+```js
+new ChucklePostAI({
+  // ......
+  typewriter: false,
+})
+```
 
 ***
 
