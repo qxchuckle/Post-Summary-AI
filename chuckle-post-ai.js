@@ -35,6 +35,7 @@ function ChucklePostAI(AI_option) {
     name: "QX-AI",
     introduce: "我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。",
     version: "GPT-4",
+    button: ["介绍自己", "推荐相关文章", "生成AI简介", "矩阵穿梭"],
     ...AI_option.interface
   }
   insertCSS(); // 插入css
@@ -49,9 +50,10 @@ function ChucklePostAI(AI_option) {
     </div>
     <div class="ai-explanation">${interface.name}初始化中...</div>
     <div class="ai-btn-box">
-      <div class="ai-btn-item">介绍自己</div>
-      <div class="ai-btn-item">推荐相关文章</div>
-      <div class="ai-btn-item">生成AI简介</div>
+      <div class="ai-btn-item">${interface.button[0]}</div>
+      <div class="ai-btn-item">${interface.button[1]}</div>
+      <div class="ai-btn-item">${interface.button[2]}</div>
+      <div class="ai-btn-item">${interface.button[3]}</div>
     </div>`;
 
   // ai主体业务逻辑
@@ -139,14 +141,14 @@ function ChucklePostAI(AI_option) {
       });
     }
   }
-  function resetAI(df = true) {
+  function resetAI(df = true, str = '生成中. . .') {
     i = 0;//重置计数器
     j = 1;
     clearSTO();
     animationRunning = false;
     elapsed = 0;
     if (df) {
-      explanation.innerHTML = '生成中. . .';
+      explanation.innerHTML = str;
     } else {
       explanation.innerHTML = '请等待. . .';
     }
@@ -243,6 +245,69 @@ function ChucklePostAI(AI_option) {
     }
     return info;
   }
+  // 矩阵穿梭
+  async function matrixShuttle(){
+    resetAI(true, '矩阵穿梭中. . .');
+    completeGenerate = false;
+    controller = new AbortController();
+    signal = controller.signal;
+    let response = '';
+    let data = '';
+    const options = {
+      signal,
+      method: 'GET',
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
+    };
+    if(sessionStorage.getItem('matrixShuttle')){
+      data = JSON.parse(sessionStorage.getItem('matrixShuttle'));
+    }else{
+      try {
+        response = await fetch('https://summary.tianli0.top/websites_used', options);
+        completeGenerate = true;
+        if (response.status === 429) {
+          startAI('请求过于频繁，请稍后再请求AI。');
+        }
+        if (!response.ok) {
+          throw new Error('Response not ok');
+        }
+        // 处理响应
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // console.log("请求已被中止");
+        }else{
+          console.error('Error occurred:', error);
+          startAI("矩阵穿梭失败了，请稍后再试。");
+        }
+        completeGenerate = true;
+        return false;
+      }
+      // 解析响应并返回结果
+      data = await response.json();
+      sessionStorage.setItem('matrixShuttle', JSON.stringify(data));
+    }
+    const randomElement = getRandomElementFromArray(data.websites);
+    if(randomElement){
+      startAI(`正在前往 ${randomElement} ，已有 ${data.count} 个网站接入AI摘要。`);
+      sto[2] = setTimeout(() => {
+        window.open(`https://${randomElement}`, '_blank');
+      }, speed*100);
+    }else{
+      startAI(`没有可以穿梭的网站。`);
+    }
+  }
+  // 随机返回数组中一个元素
+  function getRandomElementFromArray(array) {
+    if (array.length === 0) {
+      return null; // 返回null表示数组为空
+    }
+    const randomIndex = getRandomIndex(array.length);
+    return array[randomIndex];
+  }
+  function getRandomIndex(max) {
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    return array[0] % max;
+  }
   //ai首屏初始化，绑定按钮注册事件
   async function ai_init() {
     // 清除缓存
@@ -251,8 +316,12 @@ function ChucklePostAI(AI_option) {
     explanation = document.querySelector('.ai-explanation');
     post_ai = document.querySelector('.post-ai');
     ai_btn_item = document.querySelectorAll('.ai-btn-item');
-    const funArr = [aiIntroduce, aiRecommend, aiGenerateAbstract];
+    const funArr = [aiIntroduce, aiRecommend, aiGenerateAbstract, matrixShuttle];
     ai_btn_item.forEach((item, index) => {
+      if(AI_option.hide_shuttle && index === ai_btn_item.length - 1){
+        item.style.display = 'none';
+        return;
+      }
       item.addEventListener('click', () => {
         funArr[index]();
       });
@@ -274,7 +343,7 @@ function ChucklePostAI(AI_option) {
       localStorage.setItem('visitorId', visitorId);
       return visitorId;
     } catch (error) {
-      console.error("生成ID失败：", error);
+      console.error("生成ID失败");
       return null;
     }
   }
@@ -519,7 +588,7 @@ function ChucklePostAI(AI_option) {
     if(document.getElementById(styleId)) { return; }
     const styleElement = document.createElement('style');
     styleElement.id = styleId;
-    styleElement.textContent = `:root{--ai-font-color:#353535;--ai-post-bg:rgba(255,255,255,0.32);--ai-border:1px solid #e3e8f7bd;--ai-tag-bg:rgba(48,52,63,0.86);--ai-cursor:#333;}[data-theme=dark],.theme-dark,body.dark,body.dark-theme{--ai-font-color:rgba(255,255,255,0.86);--ai-post-bg:rgba(48,52,63,0.35);--ai-border:1px solid #3d3d3f;--ai-tag-bg:#30343f;--ai-cursor:rgb(255,255,255,0.9);}#post-ai.post-ai{background:var(--ai-post-bg);border-radius:12px;padding:12px 16px;line-height:1.3;border:var(--ai-border);margin-top:10px;margin-bottom:6px;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-title{display:flex;color:var(--ai-font-color);border-radius:8px;align-items:center;padding:0 5px;}#post-ai .ai-title i{font-weight:800;}#post-ai .ai-title-text{font-weight:bold;margin-left:8px;}#post-ai .ai-tag{font-size:12px;background-color:var(--ai-tag-bg);color:rgba(255,255,255,0.9);border-radius:4px;margin-left:auto;line-height:1;padding:4px 5px;border:var(--ai-border);}#post-ai .ai-explanation{margin-top:11px;font-size:15.5px;line-height:1.4;color:var(--ai-font-color);}#post-ai .ai-cursor{display:inline-block;width:7px;background:var(--ai-cursor);height:16px;margin-bottom:-2px;opacity:0.95;margin-left:3px;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-btn-box{font-size:15.5px;width:100%;display:flex;flex-direction:row;flex-wrap:wrap;}#post-ai .ai-btn-item{padding:5px 10px;margin:10px 16px 0px 5px;width:fit-content;line-height:1;background:rgba(48,52,63,0.75);border:var(--ai-border);color:#fff;border-radius:6px 6px 6px 0;-webkit-border-radius:6px 6px 6px 0;-moz-border-radius:6px 6px 6px 0;-ms-border-radius:6px 6px 6px 0;-o-border-radius:6px 6px 6px 0;user-select:none;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-btn-item:hover{background:#49b0f5dc;}#post-ai .ai-recommend{display:flex;flex-direction:row;flex-wrap:wrap;}#post-ai .ai-recommend-item{width:50%;margin-top:2px;}#post-ai .ai-recommend-item a{border-bottom:2px solid #4c98f7;padding:0 .2em;color:#4c98f7;font-weight:700;text-decoration:none;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-recommend-item a:hover{background-color:#49b1f5;border-bottom:2px solid #49b1f5;color:#fff;border-radius:5px;}`;
+    styleElement.textContent = `:root{--ai-font-color:#353535;--ai-post-bg:rgba(255,255,255,0.32);--ai-border:1px solid #e3e8f7bd;--ai-tag-bg:rgba(48,52,63,0.86);--ai-cursor:#333;}[data-theme=dark],.theme-dark,body.dark,body.dark-theme{--ai-font-color:rgba(255,255,255,0.86);--ai-post-bg:rgba(48,52,63,0.35);--ai-border:1px solid #3d3d3f;--ai-tag-bg:#30343f;--ai-cursor:rgb(255,255,255,0.9);}#post-ai.post-ai{background:var(--ai-post-bg);border-radius:12px;padding:12px 16px;line-height:1.3;border:var(--ai-border);margin-top:10px;margin-bottom:6px;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-title{display:flex;color:var(--ai-font-color);border-radius:8px;align-items:center;padding:0 5px;}#post-ai .ai-title i{font-weight:800;}#post-ai .ai-title-text{font-weight:bold;margin-left:8px;}#post-ai .ai-tag{font-size:12px;background-color:var(--ai-tag-bg);color:rgba(255,255,255,0.9);border-radius:4px;margin-left:auto;line-height:1;padding:4px 5px;border:var(--ai-border);}#post-ai .ai-explanation{margin-top:11px;font-size:15.5px;line-height:1.4;color:var(--ai-font-color);}#post-ai .ai-cursor{display:inline-block;width:7px;background:var(--ai-cursor);height:16px;margin-bottom:-2px;opacity:0.95;margin-left:3px;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-btn-box{font-size:15.5px;width:100%;display:flex;flex-direction:row;flex-wrap:wrap;}#post-ai .ai-btn-item{padding:5px 10px;margin:10px 16px 0px 5px;width:fit-content;line-height:1;background:rgba(48,52,63,0.75);border:var(--ai-border);color:#fff;border-radius:6px 6px 6px 0;-webkit-border-radius:6px 6px 6px 0;-moz-border-radius:6px 6px 6px 0;-ms-border-radius:6px 6px 6px 0;-o-border-radius:6px 6px 6px 0;user-select:none;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-btn-item:hover{background:#49b0f5dc;}#post-ai .ai-recommend{display:flex;flex-direction:row;flex-wrap:wrap;}#post-ai .ai-recommend-item{width:50%;margin-top:2px;}#post-ai .ai-recommend-item a{border-bottom:2px solid #4c98f7;padding:0 .2em;color:#4c98f7;font-weight:700;text-decoration:none;transition:all 0.3s;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;-o-transition:all 0.3s;}#post-ai .ai-recommend-item a:hover{background-color:#49b1f5;border-bottom:2px solid #49b1f5;color:#fff;border-radius:5px;}@media screen and (max-width:768px){#post-ai .ai-btn-box{justify-content:center;}}`;
     document.head.appendChild(styleElement);
   }
 

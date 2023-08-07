@@ -1,29 +1,6 @@
 ## 进阶操作
 这里是摘要AI的进阶用法，以及一些实验性功能
 
-**所有进阶配置项：**
-
-```js
-new ChucklePostAI({
-  // ......
-  interface: {
-    name: "QX-AI", // AI名称
-    introduce: "我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。", // 自我介绍
-    version: "GPT-4", // 右上角GPT版本文字
-  },
-  // 获取文章内容时，排除某些元素及其子元素的内容
-  exclude: ['post-ai', 'highlight', 'Copyright-Notice', 'post-series', 'mini-sandbox'],
-  // 让指定页面、文章不显示摘要AI
-  eliminate: [],
-  // 摘要AI挂载后直接请求并显示摘要
-  summary_directly: false,
-  // 控制打字机效果
-  typewriter: true,
-  // 控制打字机速度
-  speed: 20,
-})
-```
-
 **1、自定义界面信息，修改AI名称和自我介绍等**，新增 `interface` 配置项。
 
 ```js
@@ -33,6 +10,7 @@ new ChucklePostAI({
     name: "QX-AI", // AI名称
     introduce: "我是文章辅助AI: QX-AI，点击下方的按钮，让我生成本文简介、推荐相关文章等。", // 自我介绍
     version: "GPT-4", // 右上角GPT版本文字
+    button: ["介绍自己", "推荐相关文章", "生成AI简介", "矩阵穿梭"], // 四个按钮文本
   },
 })
 ```
@@ -143,6 +121,18 @@ new ChucklePostAI({
 
 ***
 
+**8、隐藏矩阵穿梭按钮**
+矩阵穿梭，随机跳转到一个接入了AI摘要的网站，但或许你并不需要矩阵穿梭的功能和按钮，那就用 `hide_shuttle` 配置项去掉吧
+
+```js
+new ChucklePostAI({
+  // ......
+  hide_shuttle: true,
+})
+```
+
+***
+
 ## 实验性功能
 **以下是实验性功能，不保证其稳定性，但都已经过测试**
 
@@ -151,7 +141,7 @@ new ChucklePostAI({
 
 开启 `auto_mount` 将不需要 el 配置项，JS会自动通过一些算法找到文章所在的容器元素，经测试兼容大部分网站。开启该功能后，el 配置项将无效。
 
-**注意**：前后端分离的、文章内容需要通过后端接口获取的网站，不要开启此功能。
+**注意**：前后端分离的、文章内容需要通过后端接口获取的网站，不建议开启此功能，除非已经将 `new ChucklePostAI()` 放到获取文章成功后的**回调**中(即获取文章成功后才执行某些JS代码)。
 
 ```js
 new ChucklePostAI({
