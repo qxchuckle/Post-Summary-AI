@@ -64,6 +64,8 @@ function ChucklePostAI(AI_option) {
   let delay_init = 600;
   let i = 0;
   let j = 0;
+  let speed = AI_option.speed || 20;
+  let character_speed = speed*7.5;
   let sto = [];
   let elapsed = 0;
   let completeGenerate = false;
@@ -83,11 +85,11 @@ function ChucklePostAI(AI_option) {
     }
     if (!animate.start) animate.start = timestamp;
     elapsed = timestamp - animate.start;
-    if (elapsed >= 20) {
+    if (elapsed >= speed) {
       animate.start = timestamp;
       if (i < ai_str_length - 1) {
         let char = ai_str.charAt(i + 1);
-        let delay = /[,.，。!?！？]/.test(char) ? 150 : 20;
+        let delay = /[,.，。!?！？]/.test(char) ? character_speed : speed;
         if (explanation.firstElementChild) {
           explanation.removeChild(explanation.firstElementChild);
         }
@@ -96,7 +98,7 @@ function ChucklePostAI(AI_option) {
         div.className = "ai-cursor";
         explanation.appendChild(div);
         i++;
-        if (delay === 150) {
+        if (delay === character_speed) {
           document.querySelector('.ai-explanation .ai-cursor').style.opacity = "0";
         }
         if (i === ai_str_length - 1) {

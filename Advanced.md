@@ -19,6 +19,8 @@ new ChucklePostAI({
   summary_directly: false,
   // 控制打字机效果
   typewriter: true,
+  // 控制打字机速度
+  speed: 20,
 })
 ```
 
@@ -122,6 +124,20 @@ false 关闭，true 开启，默认是开启
 new ChucklePostAI({
   // ......
   typewriter: false,
+})
+```
+
+***
+
+**7、控制打字机效果的速度**
+本项目自己实现了一套打字机效果，如果你对默认打字机的速度不满意，可以使用 `speed` 配置项自定义速度
+
+单位ms，即输出一个字所用的基准时间，默认20ms
+
+```js
+new ChucklePostAI({
+  // ......
+  speed: 20,
 })
 ```
 
