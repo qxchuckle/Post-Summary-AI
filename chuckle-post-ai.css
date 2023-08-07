@@ -127,3 +127,8 @@
   color: #fff;
   border-radius: 5px;
 }
+@media screen and (max-width: 768px){
+  #post-ai .ai-btn-box{
+    justify-content: center;
+  }
+}
