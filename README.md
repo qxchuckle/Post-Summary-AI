@@ -23,7 +23,7 @@ cdn1.tianli0.top、jsd.onmicrosoft.cn 是公益cdn，若无法访问或为确保
 
 ```html
 <!-- chuckle-post-ai.js可以在网页结构的任何位置插入，只要你能够 -->
-<script src="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@4.6/chuckle-post-ai.js"></script>
+<script src="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@4.7/chuckle-post-ai.js"></script>
 <!-- 但要确保的是，AI构造代码一定要在chuckle-post-ai.js之后插入 -->
 <script data-pjax defer>
   new ChucklePostAI({
@@ -77,6 +77,8 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 
 ## 6.进阶操作
 摘要AI的**进阶用法**，以及一些**实验性**功能：[进阶操作](https://github.com/qxchuckle/Post-Summary-AI/blob/master/Advanced.md)
+
+***
 
 ## 7.技术支持
 若你的网站接入该项目有困难，可以提 [issues](https://github.com/qxchuckle/Post-Summary-AI/issues)，简单讲述你所遇到的困难，并附上**网站地址**，你将会获得快速的回复。
