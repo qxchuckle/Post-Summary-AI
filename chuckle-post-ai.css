@@ -54,6 +54,7 @@
   margin-top: 11px;
   font-size: 15.5px;
   line-height: 1.4;
+  color: var(--ai-font-color);
 }
 #post-ai .ai-cursor{
   display: inline-block;

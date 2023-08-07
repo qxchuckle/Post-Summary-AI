@@ -51,8 +51,8 @@ cdn1.tianli0.top、jsd.onmicrosoft.cn 是公益cdn，若无法访问或为确保
 
 ***
 
-## 3.什么是TianliGPT
-TianliGPT是一个基于GPT-3.5的文字摘要生成工具，你可以将需要提取摘要的文本内容发送给TianliGPT，稍等一会他就可以给你发送一个基于这段文本内容的摘要。该服务端暂未开源。
+## 3.注意事项
+1. 若是**动态网站**（静态或服务端渲染网站无需注意此事项），文章内容需要通过后端接口获取后返回给前端展示的，建议将 `new ChucklePostAI()` 放到获取文章成功后的**回调**中(即获取文章成功后才执行某些JS代码)，这样可以保证访客在文章出现后，才能去点击按钮获取AI摘要，以免获取到空文章内容，返回错误的摘要。不同的网站有各自的获取文章成功后的回调，请查阅自己网站系统的文档。
 
 ***
 
@@ -91,6 +91,8 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 这里展示已经成功部署 Post-Summary-AI 的网站，若你已成功部署，可以提 [issues](https://github.com/qxchuckle/Post-Summary-AI/issues)，会将你展示于此
 
 1. [MoyuqLのBlog](https://blog.moyuql.top/)
+2. [佳凌雾杨的日记](https://www.chukogals.top/)
+3. [王卓Sco](https://blog.sondy.top/)
 
 ***
 
