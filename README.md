@@ -31,8 +31,6 @@ cdn1.tianli0.top、jsd.onmicrosoft.cn 是公益cdn，若无法访问或为确保
     el: '#post>#article-container',
     // 驱动AI所必须的key，即是tianliGPT后端服务所必须的key
     key: '123456',
-    // 文章标题所在的元素属性的选择器，默认获取当前网页的标题
-    title_el: '.post-title',
     // 文章推荐方式，all：匹配数据库内所有文章进行推荐，web：仅当前站内的文章，默认all
     rec_method: 'web',
   })
@@ -44,8 +42,7 @@ cdn1.tianli0.top、jsd.onmicrosoft.cn 是公益cdn，若无法访问或为确保
 **AI构造函数 `ChucklePostAI({ /* 传入配置对象 */ })` 详解**
 1. `el` **文章内容**所在的元素属性的选择器，也是AI**挂载**的容器，AI将会挂载到该容器的最前面
 2. `key` 驱动AI所必须的key，即是tianliGPT后端服务所必须的**key**
-3. `title_el` **文章标题**所在的元素属性的选择器，默认获取当前**网页的标题**
-4. `rec_method` 文章推荐方式，**all**：匹配数据库内所有文章进行推荐，**web**：仅当前站内的文章，**默认all**
+3. `rec_method` 文章推荐方式，**all**：匹配数据库内所有文章进行推荐，**web**：仅当前站内的文章，**默认all**
 
 项目开发不易，可以前往[爱发电](https://afdian.net/a/chuckle)给予我赞助
 
