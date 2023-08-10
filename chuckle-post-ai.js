@@ -349,31 +349,33 @@ function ChucklePostAI(AI_option) {
   }
   //获取某个元素内的所有纯文本，并按顺序拼接返回
   function getText(element) {
-    //需要排除的元素及其子元素
+    // 需要排除的元素及其子元素
     const excludeClasses = AI_option.exclude ? AI_option.exclude : ['highlight', 'Copyright-Notice', 'post-ai', 'post-series', 'mini-sandbox'];
+    if (!excludeClasses.includes('post-ai')) { excludeClasses.push('post-ai'); }
+    const excludeTags = ['script', 'style', 'iframe', 'embed', 'video', 'audio', 'source', 'canvas', 'img', 'svg', 'hr', 'input', 'form'];// 需要排除的标签名数组
     let textContent = '';
     for (let node of element.childNodes) {
       if (node.nodeType === Node.TEXT_NODE) {
-        //如果是纯文本节点则获取内容拼接
+        // 如果是纯文本节点则获取内容拼接
         textContent += node.textContent.trim();
       } else if (node.nodeType === Node.ELEMENT_NODE) {
-        let hasExcludeClass = false;//跟踪元素是否包含需要排除的类名
-        //遍历类名
+        let hasExcludeClass = false;
+        // 遍历类名
         for (let className of node.classList) {
-          //如果包含则hasExcludeClass设为true，且break跳出循环
           if (excludeClasses.includes(className)) {
             hasExcludeClass = true;
             break;
           }
         }
-        //如果hasExcludeClass为false，即该标签不包含需要排除的类，可以继续向下遍历子元素
-        if (!hasExcludeClass) {
+        let hasExcludeTag = excludeTags.includes(node.tagName.toLowerCase()); // 检查是否是需要排除的标签
+        // 如果hasExcludeClass和hasExcludeTag都为false，即不包含需要排除的类和标签，可以继续向下遍历子元素
+        if (!hasExcludeClass && !hasExcludeTag) {
           let innerTextContent = getText(node);
           textContent += innerTextContent;
         }
       }
     }
-    //返回纯文本节点的内容
+    // 返回纯文本节点的内容
     return textContent.replace(/\s+/g, '');
   }
   //获取各级标题
