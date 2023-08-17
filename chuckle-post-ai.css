@@ -132,3 +132,10 @@
     justify-content: center;
   }
 }
+#post-ai .ai-title>svg {
+  width: 21px;
+  height: fit-content;
+}
+#post-ai .ai-title>svg path{
+  fill: var(--ai-font-color);
+}
