@@ -9,8 +9,8 @@
 
 ## 1.效果
 更多的 Post-Summary-AI 部署效果请查看[部署展示](https://github.com/qxchuckle/Post-Summary-AI#8%E9%83%A8%E7%BD%B2%E5%B1%95%E7%A4%BA)
-![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/2286104e-a6fe-49ff-bfd4-4b9f30bcfb57)
-
+![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/a0029aac-7f6a-4888-b037-8cabbdc76053)
+![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/08e897d2-90a4-4497-ac11-39b4a1f43cbd)
 
 ***
 
@@ -23,7 +23,7 @@ cdn1.tianli0.top、jsd.onmicrosoft.cn 是公益cdn，若无法访问或为确保
 
 ```html
 <!-- chuckle-post-ai.js可以在网页结构的任何位置插入，只要你能够 -->
-<script src="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@5.0/chuckle-post-ai.js"></script>
+<script src="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@5.1/chuckle-post-ai.min.js"></script>
 <!-- 但要确保的是，AI构造代码一定要在chuckle-post-ai.js之后插入 -->
 <script data-pjax defer>
   new ChucklePostAI({
