@@ -94,6 +94,7 @@ tianliGPT的key请到[爱发电](https://afdian.net/item/f18c2e08db4411eda2f2525
 1. [MoyuqLのBlog](https://blog.moyuql.top/)
 2. [佳凌雾杨的日记](https://www.chukogals.top/)
 3. [王卓Sco](https://blog.sondy.top/)
+4. [Teink](https://te.ink/)
 
 ***
 
