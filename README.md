@@ -23,7 +23,7 @@ cdn1.tianli0.top、jsd.onmicrosoft.cn 是公益cdn，若无法访问或为确保
 
 ```html
 <!-- chuckle-post-ai.js可以在网页结构的任何位置插入，只要你能够 -->
-<script src="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@5.1/chuckle-post-ai.min.js"></script>
+<script src="https://jsd.onmicrosoft.cn/gh/qxchuckle/Post-Summary-AI@5.2/chuckle-post-ai.min.js"></script>
 <!-- 但要确保的是，AI构造代码一定要在chuckle-post-ai.js之后插入 -->
 <script data-pjax defer>
   new ChucklePostAI({
