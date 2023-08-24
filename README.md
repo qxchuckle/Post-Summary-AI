@@ -9,8 +9,8 @@
 
 ## 1.效果
 更多的 Post-Summary-AI 部署效果请查看[部署展示](https://github.com/qxchuckle/Post-Summary-AI#8%E9%83%A8%E7%BD%B2%E5%B1%95%E7%A4%BA)
-![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/0040befb-d56e-404e-8213-d483e3656b30)
-![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/e17581e0-404a-4275-a9cf-14f57d993a5b)
+![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/9dda32f5-f97b-43a1-89a5-83fc014980df)
+![image](https://github.com/qxchuckle/Post-Summary-AI/assets/55614189/291ed41d-e9f0-4271-9db5-ab357697f806)
 
 ***
 
