@@ -399,24 +399,27 @@ function ChucklePostAI(AI_option) {
       return result.join(";");
     }
     //按比例切割字符串
-    function extractString(str) {
-      // 截取前500个字符
-      var first500 = str.substring(0, 500);
-      // 截取末尾200个字符
-      var last200 = str.substring(str.length - 200);
-      // 截取中间300个字符
-      var midStartIndex = (str.length - 300) / 2; // 计算中间部分的起始索引
-      var middle300 = str.substring(midStartIndex, midStartIndex + 300);
-      // 将三个部分拼接在一起
-      var result = first500 + middle300 + last200;
-      // 返回截取后的字符串
+    function extractString(str, totalLength = 1000, ratioString = "5:3:2") {
+      totalLength = Math.min(totalLength, 5000); // 最大5000字数
+      if (str.length <= totalLength) { return str; }
+      const ratios = ratioString.split(":").map(Number);
+      const sumRatios = ratios.reduce((sum, ratio) => sum + ratio, 0);
+      const availableLength = Math.min(str.length, totalLength);
+      const partLengths = ratios.map(ratio => Math.floor((availableLength * ratio) / sumRatios));
+      const firstPart = str.substring(0, partLengths[0]);
+      const midStartIndex = (str.length - 300) / 2; // 计算中间部分的起始索引
+      const middlePart = str.substring(midStartIndex, midStartIndex + partLengths[1]);
+      const lastPart = str.substring(str.length - partLengths[2]);
+      const result = firstPart + middlePart + lastPart;
       return result;
     }
     //获得字符串，默认进行切割，false返回原文纯文本
     function getTextContent(element, i = true) {
       let content;
       if (i) {
-        content = `文章的各级标题：${extractHeadings(element)}。文章内容的截取：${extractString(getText(element))}`;
+        const totalLength = AI_option.total_length || 1000;
+        const ratioString = AI_option.ratio_string || "5:3:2";
+        content = `文章的各级标题：${extractHeadings(element)}。文章内容的截取：${extractString(getText(element), totalLength, ratioString)}`;
       } else {
         content = `${getText(element)}`;
       }
