@@ -194,6 +194,18 @@ new ChucklePostAI({
 
 ***
 
+**12、插入额外CSS**  
+`additional_css` 插入额外的CSS以自定义局部样式，若无法覆盖，最好加上 !important
+
+```js
+new ChucklePostAI({
+  // ......
+  additional_css: `#post-ai .ai-btn-box{display: none!important;}`, // 案例
+})
+```
+
+***
+
 ## 实验性功能
 **以下是实验性功能，不保证其稳定性，但都已经过测试**
 
