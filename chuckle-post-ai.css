@@ -153,3 +153,24 @@
 #post-ai .ai-title>svg path{
   fill: var(--ai-font-color);
 }
+#post-ai .ai-Toggle{
+  font-size: 12px;
+  border: var(--ai-border);
+  background: var(--ai-btn-bg);
+  color: var(--ai-btn-color);
+  padding: 3px 4px;
+  border-radius: 4px;
+  margin-left: 6px;
+  cursor: pointer;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  -ms-transition: .3s;
+  transition: .3s;
+  font-weight: bolder;
+  pointer-events: none;
+  opacity: 0;
+}
+#post-ai .ai-Toggle:hover{
+  background: #49b0f5dc;
+}
