@@ -463,6 +463,7 @@ function ChucklePostAI(AI_option) {
           summary_audio.remove();
           document.removeEventListener('pjax:complete', handlePjaxComplete);
         }
+        document.removeEventListener('pjax:complete', handlePjaxComplete);
         document.addEventListener('pjax:complete', handlePjaxComplete);
       }
       ai_speech.style.opacity = "0.4";
