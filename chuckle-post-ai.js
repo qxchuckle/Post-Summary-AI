@@ -5,7 +5,11 @@ if(!window.hasOwnProperty("aiExecuted")){
 function ChucklePostAI(AI_option) {
   MAIN(AI_option);
   if(AI_option.pjax){
-    document.addEventListener('pjax:complete', ()=>{MAIN(AI_option)});
+    document.addEventListener('pjax:complete', ()=>{
+      setTimeout(()=>{
+        MAIN(AI_option);
+      }, 0);
+    });
   }
   function MAIN(AI_option) {
     // 如果有则删除
