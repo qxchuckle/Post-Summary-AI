@@ -424,6 +424,8 @@ function ChucklePostAI(AI_option) {
           }
         }catch (error) {
           console.log("摘要语音请求出错：", error);
+          ai_speech.style.opacity = "1";
+          ai_speech.style.pointerEvents = "auto";
         }
       }
     }
