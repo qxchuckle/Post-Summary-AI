@@ -457,6 +457,14 @@ function ChucklePostAI(AI_option) {
       const audioURL = URL.createObjectURL(audioBlob);
       summary_audio = new Audio(audioURL);
       summary_audio.play();
+      if(AI_option.pjax){
+        function handlePjaxComplete() {
+          summary_audio.pause();
+          summary_audio.remove();
+          document.removeEventListener('pjax:complete', handlePjaxComplete);
+        }
+        document.addEventListener('pjax:complete', handlePjaxComplete);
+      }
       ai_speech.style.opacity = "0.4";
       ai_speech.style.animation = "ai_breathe .7s linear infinite";
       summary_audio.removeEventListener("ended", handleSummaryAudioEnded);
