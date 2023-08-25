@@ -410,6 +410,8 @@ function ChucklePostAI(AI_option) {
           id: summaryId,
         });
         try {
+          ai_speech.style.pointerEvents = "none";
+          ai_speech.style.opacity = "0.4";
           response = await fetch(`https://summary.tianli0.top/audio?${requestParams}`, options);
           if (response.status === 403) {
             console.error("403 refer与key不匹配。");
@@ -417,6 +419,7 @@ function ChucklePostAI(AI_option) {
             console.error("500 系统内部错误");
           }else{
             audioBlob = await response.blob();
+            ai_speech.style.pointerEvents = "auto";
             await summarySpeechPlay(audioBlob);
           }
         }catch (error) {
