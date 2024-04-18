@@ -1,3 +1,5 @@
+> 本库短期内暂时无继续对接tianliGPT的更新计划，请查看最新的 [Post-Abstract-AI](https://github.com/zhheo/Post-Abstract-AI) 项目
+
 # Post-Summary-AI
 一个较通用的，生成网站内文章**摘要**(简介)，并**推荐**相关文章的AI(前端实现)，基于tianliGPT后端
 
